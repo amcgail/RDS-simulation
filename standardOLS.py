@@ -18,7 +18,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 RANDOM_SEED = 42
-NUM_PEOPLE = 500
+NUM_PEOPLE = 5000
 SIM_TIME = 500
 
 MAX_SAMPLE = 100
@@ -112,7 +112,7 @@ def drawGraph(people, drawFull=False, springSamp=True, springPop=False):
 if "ests" not in locals() or True:
     ests = []
 
-while len(ests) < 300:
+while len(ests) < 50:
     print(len(ests), "th iteration")
     num_sampled = 0
     
