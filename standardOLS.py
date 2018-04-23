@@ -18,7 +18,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 RANDOM_SEED = 42
-NUM_PEOPLE = 5000
+NUM_PEOPLE = 500
 SIM_TIME = 500
 
 MAX_SAMPLE = 100
