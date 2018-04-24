@@ -13,6 +13,8 @@ n.addPeople( 500 )
 n.genOLSwage()
 n.makeFriends()
 
+n.spreadProperty("HIV")
+
 n.performRDS()
 
 n.full_CSV("data/smallNeighborhood.full.csv")

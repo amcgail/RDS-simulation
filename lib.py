@@ -32,6 +32,16 @@ class Person(object):
             self.friends.append(p)
             p.friends.append( self )
 
+    def spreadProperty(self, env, pname):
+        self[pname] = True
+        yield env.timeout(random.random()*2+1)
+
+        # how many to infect?
+        coupons = random.randint(0,3)
+
+        infects = random.sample(self.friends, min(coupons,len(self.friends)))
+        for x in infects:
+            env.process(x.spreadProperty(env, pname))
 
     def recruit(self, env, recruiterInfo={}):
         yield env.timeout(random.random()*2+1)
@@ -181,7 +191,6 @@ class Network():
             p.sampleInfo = None
 
     def performRDS(self, numseeds=3, maxsample=100):
-
         SIM_TIME = 500
 
         self.clearRDS()
@@ -233,6 +242,28 @@ class Network():
             outc.writerow(['id', 'degree'] + self.people[0]._prop.keys())
             for p in self.people:
                 outc.writerow([p.index, len(p.friends)] + p._prop.values())
+
+    def spreadProperty(self, pname, numseeds=10):
+        SIM_TIME = 500
+
+        env = simpy.Environment()
+        
+        for p in self.people:
+            p['pname'] = False
+
+        # start RDS
+        seeds = random.sample( self.people, numseeds )
+        for x in seeds:
+            env.process(x.spreadProperty(env, pname))
+
+        # Execute!
+        env.run(until=SIM_TIME)
+
+        # Analyis/results
+        sampled = filter( lambda x: x[pname], self.people )
+        sampled = list(sampled)
+
+        print(len(sampled), " individuals infected with '%s'"%pname)
 
     def plotRecruitment(self, drawFull=False, springSamp=True, springPop=False):
         sampled = filter( lambda x: x.sampled, self.people )
