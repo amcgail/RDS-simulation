@@ -165,4 +165,4 @@ class Network():
             print(len(sampled), " individuals sampled")
 
         if len(sampled) < 50:
-            continue
+            return performRDS(self, numseeds=numseeds)
