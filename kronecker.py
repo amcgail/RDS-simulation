@@ -1,7 +1,7 @@
 from lib import *
 
 kedges = []
-with open( 'kronecker_graph.txt' ) as kfile:
+with open( 'data/kronecker_graph.txt' ) as kfile:
     for l in kfile:
         ls = l.split()
         if len(ls) != 2:
@@ -15,4 +15,4 @@ n = Network.fromEdgeList( kedges )
 
 n.genOLSwage()
 n.performRDS(numseeds=10, maxsample=1000)
-n.exportCSV("test.csv")
+n.exportCSV("data/kronecker.RDSsample.csv")

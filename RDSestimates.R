@@ -1,5 +1,12 @@
 library(RDS)
-d <- read.csv('test.csv')
+d <- read.csv('data/kronecker.RDSsample.csv')
+d <- read.csv('data/smallNeighborhood.full.csv')
+
+# interesting. can I get the OLS back?
+d$educblack = d$educ*d$black
+d$lnwage = log(d$wage)
+l <- lm(lnwage ~ black + educ + educblack + ability, d)
+# yes...
 
 # all seeds should be given the same unique identifier
 seeds <- d[ is.na( d$recruiter ), "recruit"]

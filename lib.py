@@ -15,6 +15,7 @@ import random
 import numpy as np
 from csv import writer
 from itertools import chain
+import networkx as nx
 
 class Person(object):
 
@@ -22,7 +23,9 @@ class Person(object):
         self._prop = {}
         self.friends = []
         self.index = index
-        self['sampled'] = False
+        
+        self.sampled = False
+        self.sampleInfo = None
 
     def addFriend(self, p):
         if p not in self.friends:
@@ -43,13 +46,13 @@ class Person(object):
         if env.num_sampled >= env.maxsample:
             return
 
-        self['sampleInfo'] = recruiterInfo
-        self['sampled'] = True
+        self.sampleInfo = recruiterInfo
+        self.sampled = True
 
         env.num_sampled += 1
         #print( self.index, "sampled :)" )
 
-        friends = filter( lambda x: not x['sampled'], self.friends )
+        friends = filter( lambda x: not x.sampled, self.friends )
         friends = list(friends)
 
         # how many I decide to give out...
@@ -63,6 +66,11 @@ class Person(object):
             }
             env.process(x.recruit(env, myinfo))
 
+    def props(self):
+        return [self._prop[k] for k in self._prop if type(self._prop[k]) in [str, int, bool]]
+    def propkeys(self):
+        return [k for k in self._prop if type(self._prop[k]) in [str, int, bool]]
+
     def __str__(self):
         return 'Person "%d"' % self.index
     __repr__ = __str__
@@ -71,8 +79,6 @@ class Person(object):
         return self._prop[x]
     def __setitem__(self, x, y):
         self._prop[x] = y
-    def __iter__(self):
-        return iter(self._prop.keys())
     def __delitem__(self, x):
         del self._prop[x]
     def __contains__(self, x):
@@ -105,6 +111,14 @@ class Network():
     def __init__(self):
         self.people = []
         self.pdict = {}
+        
+    def addPeople( self, n ):
+        index = 0
+        for i in range(n):
+            while index in self.pdict:
+                index += 1
+                
+            self.addPerson( Person( index ) )
 
     def genOLSwage(self):
         # generate covariates which we use as starters
@@ -113,12 +127,6 @@ class Network():
         black = np.random.binomial(1, 0.5, nppl)
         educ = np.random.normal(12, 3, nppl)
         ability = np.random.normal(8, 2, nppl)
-
-        self.cov = np.matrix([
-            black,
-            educ,
-            ability
-        ])
 
         lnwage = 9.49 + 0.046*educ - 0.165*black + 0.023*np.multiply(educ,black) + \
             0.024*ability + np.random.normal(0, 0.25, nppl)
@@ -138,21 +146,22 @@ class Network():
         NFRIENDSHIPS *= 0.02
         NFRIENDSHIPS = int(NFRIENDSHIPS)
 
-        cov = self.cov
+        attr = self.people[0]._prop.keys()
+        cov = np.matrix([ [ p._prop[a] for p in self.people ] for a in attr ])
+
+        homophily = 1
 
         nf = 0
         # make friends
         while nf < NFRIENDSHIPS:
             p1 = random.choice(self.people)
+            
             myCov = cov[:,p1.index]
 
-            homophily = 1
-
             logodds = 0
-            logodds += homophily * ( cov[0,:] == myCov[0] )*0.5             # same race
-            logodds += - homophily * np.abs( cov[1,:] - myCov[1] ) / ( np.max(cov[1,:]) - np.min(cov[1,:]) )   # distance in educ
-            logodds += - homophily * np.abs( cov[2,:] - myCov[2] ) / ( np.max(cov[2,:]) - np.min(cov[2,:]) )   # distance in ability
-            logodds += - homophily * np.abs( self.wage - self.wage[p1.index] ) / ( np.max(self.wage) - np.min(self.wage) )   # distance in dep var
+            
+            for i in range(len(attr)):
+                logodds += - homophily * ( cov[i,:] - myCov[i] ) / ( np.max(cov[1,:]) - np.min(cov[1,:]) )   # distance decreases logodds
 
             odds = np.exp(logodds)
             p = odds / (1 + odds)
@@ -168,9 +177,8 @@ class Network():
 
     def clearRDS(self):
         for p in self.people:
-            p['sampled'] = False
-            if 'sampleInfo' in p:
-                del p['sampleInfo']
+            p.sampled = False
+            p.sampleInfo = None
 
     def performRDS(self, numseeds=3, maxsample=100):
 
@@ -195,7 +203,7 @@ class Network():
         env.run(until=SIM_TIME)
 
         # Analyis/results
-        sampled = filter( lambda x: x['sampled'], self.people )
+        sampled = filter( lambda x: x.sampled, self.people )
         sampled = list(sampled)
 
         print(len(sampled), " individuals sampled")
@@ -204,29 +212,37 @@ class Network():
             print( "..sample too small. restarting")
             return self.performRDS(numseeds=numseeds)
 
-    def exportCSV(self, fn):
+    def RDS_CSV(self, fn):
         with open(fn, 'w') as outf:
             outc = writer(outf)
-            outc.writerow(['recruiter', 'recruit', 'degree', 'black'])
+            outc.writerow(['recruiter', 'recruit', 'degree'] + self.people[0]._prop.keys())
             for p in self.people:
-                if not p['sampled']:
+                if not p.sampled:
                     continue
 
                 r = None
-                if p['sampleInfo']['by'] != "GOD":
-                    r = p['sampleInfo']['by'].index
+                if p.sampleInfo['by'] != "GOD":
+                    r = p.sampleInfo['by'].index
 
-                outc.writerow([ r, p.index, len(p.friends), p['black'] ])
+                outc.writerow([ r, p.index, len(p.friends) ] + p._prop.values())
+    
+    def full_CSV(self, fn):
+        with open(fn, 'w') as outf:
+            outc = writer(outf)
+            print(self.people[0]._prop.keys())
+            outc.writerow(['id', 'degree'] + self.people[0]._prop.keys())
+            for p in self.people:
+                outc.writerow([p.index, len(p.friends)] + p._prop.values())
 
     def plotRecruitment(self, drawFull=False, springSamp=True, springPop=False):
-        sampled = filter( lambda x: x['sampled'], self.people )
+        sampled = filter( lambda x: x.sampled, self.people )
         sampled = list(sampled)
 
         G = nx.Graph()
         G.add_nodes_from([str(x) for x in sampled])
         G.add_node("GOD")
 
-        G.add_edges_from([(str(x['sampleInfo']['by']), str(x)) for x in sampled])
+        G.add_edges_from([(str(x.sampleInfo['by']), str(x)) for x in sampled])
 
         #pos = nx.spectral_layout(G, weight=10)
         #pos = nx.spring_layout(G2, k=0.5, iterations=250)
@@ -239,7 +255,7 @@ class Network():
             G2 = nx.Graph()
             G2.add_nodes_from([str(x) for x in self.people])
             G2.add_edges_from([(str(x), str(y)) for x in sampled for y in x.friends])
-            G2.add_edges_from([("GOD",str(x)) for x in sampled if x['sampleInfo']['by']=='GOD' ])
+            G2.add_edges_from([("GOD",str(x)) for x in sampled if x.sampleInfo['by']=='GOD' ])
 
             if springPop:
                 pos = nx.spring_layout(G2, pos=pos, k=2, iterations=250)
