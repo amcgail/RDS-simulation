@@ -7,8 +7,8 @@
 # Set working directory
 setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
 
-install.packages(c("deSolve", "tergm", "ergm", "ape", "ergm.count"))
-install.packages(c("statnet","NetSim","EpiModel","RDS"))
+# install.packages(c("deSolve", "tergm", "ergm", "ape", "ergm.count"))
+# install.packages(c("statnet","NetSim","EpiModel","RDS"))
 
 # Import libraries
 library(statnet)
@@ -17,6 +17,9 @@ library(EpiModel)
 #library(networkDynamicData)
 library(RDS)
 #library(sspse)
+
+NSTEPS = 50
+NSIMULATIONS = 5
 
 ################################################################################
 # AGING MODULE:
@@ -110,10 +113,13 @@ bfunc <- function(dat, at) {
         dat$nw <- add.vertices(dat$nw, nv = nBirths)
         newNodes <- (n + 1):(n + nBirths)
         dat$nw <- activate.vertices(dat$nw, onset = at, terminus = Inf, v = newNodes)
+        set.vertex.attribute(dat$nw, "blk", rbinom(nBirths, 1, 0.5), v=newNodes)
+        set.vertex.attribute(dat$nw, "nbd", sample(1:10, network.size(nw), replace=T), v=newNodes)
     }
     
     # Update attributes
     if (nBirths > 0) {
+      
         dat$attr$active <- c(dat$attr$active, rep(1, nBirths))
         dat$attr$status <- c(dat$attr$status, rep("s", nBirths))  
         dat$attr$infTime <- c(dat$attr$infTime, rep(NA, nBirths))
@@ -137,11 +143,24 @@ bfunc <- function(dat, at) {
     return(dat)
 }
 
+demographicInit <- function(dat, at) {
+  
+}
+
 # NETWORK MODEL PARAMETERIZATION:
 ## Fit a basic, undirected, random-mixing model for our ERGM
-nw <- network.initialize(500, directed = FALSE)
-formation <- ~edges + concurrent
-est <- netest(nw, formation, target.stats = c(250, 50), 
+nw <- network.initialize(2000, directed = FALSE)
+
+# set demographics
+set.vertex.attribute(nw, "blk", rbinom(network.size(nw), 1, 0.5))
+set.vertex.attribute(nw, "nbd", sample(1:10, network.size(nw), replace=T))
+
+nnodes = network.size(nw)
+nedges = nnodes
+
+formation <- ~edges + nodefactor("blk") + nodematch("blk") + nodematch("nbd")
+target.stats <- c(nedges, 1.2 * nnodes / 2, 1.2 * nedges / 2, nedges*.7)
+est <- netest(nw, formation, target.stats, 
               coef.diss = dissolution_coefs(~offset(edges), 60, mean(death.rates)))
 
 # EPIDEMIC MODEL PARAMETERIZATION:
@@ -153,10 +172,10 @@ est <- netest(nw, formation, target.stats = c(250, 50),
 ## Model type, # simulations, and time steps per simulation set in control.net
 ## Replacement modules in each time step are run in order listed in control.net
 ## Module order may be set by module.order argument in control.net
-param <- param.net(inf.prob = 0.15, growth.rate = 0.00083, life.expt = 70)
+param <- param.net( inf.prob = 0.15, growth.rate = 0.00083, life.expt = 70 )
 init <- init.net(i.num = 50)
 
-control <- control.net(type = "SI", nsims = 1, nsteps = 50, 
+control <- control.net(type = "SI", nsims = NSIMULATIONS, nsteps = NSTEPS,
                        deaths.FUN = dfunc, births.FUN = bfunc, aging.FUN = afunc, 
                        depend = TRUE, save.network = TRUE)
 
@@ -190,5 +209,30 @@ plot(mod, y = "b.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "B
 
 
 # plot the network
-n <- get_network(mod, sim = 1, collapse = TRUE, at = 250)
-plot(n)
+n <- get_network(mod, sim = 1, collapse = TRUE, at = 25)
+plot(n, vertex.col="blk")
+
+# export network to CSV
+library(plyr)
+nodesCSV <- ldply( 1:NSIMULATIONS, function(si) {
+  ldply( seq(1,NSTEPS,NSTEPS/5), function(t) {
+    n <- get_network(mod, sim = si, collapse = TRUE, at = t)
+    ldply( 1:length(n$val), function(vi) {
+      c( si, t, vi, unlist( n$val[[vi]] )[c("blk","testatus")] )
+    } )
+  })
+})
+names(nodesCSV) <- c("sim_i","t","person","blk","testatus")
+
+edgesCSV <- ldply( 1:NSIMULATIONS, function(si) {
+  ldply( seq(1,NSTEPS,NSTEPS/5), function(t) {
+    n <- get_network(mod, sim = si, collapse = TRUE, at = t)
+    ldply( 1:length(n$mel), function(ei) {
+      c( si, t, n$mel[[ei]]$outl, n$mel[[ei]]$inl )
+    } )
+  })
+})
+names(edgesCSV) <- c("sim_i","t","out","in")
+
+write.csv(nodesCSV, "data/ergm/nodes.csv")
+write.csv(edgesCSV, "data/ergm/edges.csv")

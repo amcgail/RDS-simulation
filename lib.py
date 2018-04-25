@@ -82,7 +82,7 @@ class Person(object):
         return [k for k in self._prop if type(self._prop[k]) in [str, int, bool]]
 
     def __str__(self):
-        return 'Person "%d"' % self.index
+        return 'Person "%s"' % self.index
     __repr__ = __str__
 
     def __getitem__(self, x):
@@ -156,7 +156,7 @@ class Network():
         NFRIENDSHIPS *= 0.02
         NFRIENDSHIPS = int(NFRIENDSHIPS)
 
-        attr = self.people[0]._prop.keys()
+        attr = list(self.people[0]._prop.keys())
         cov = np.matrix([ [ p._prop[a] for p in self.people ] for a in attr ])
 
         homophily = 1
@@ -191,7 +191,7 @@ class Network():
             p.sampleInfo = None
 
     def performRDS(self, numseeds=3, maxsample=100):
-        SIM_TIME = 500
+        SIM_TIME = 10000
 
         self.clearRDS()
 
@@ -216,15 +216,16 @@ class Network():
         sampled = list(sampled)
 
         print(len(sampled), " individuals sampled")
-
+        
+        print( "maxsample", maxsample )
         if len(sampled) < maxsample / 2:
             print( "..sample too small. restarting")
-            return self.performRDS(numseeds=numseeds)
+            return self.performRDS(numseeds=numseeds, maxsample=maxsample)
 
     def RDS_CSV(self, fn):
         with open(fn, 'w') as outf:
             outc = writer(outf)
-            outc.writerow(['recruiter', 'recruit', 'degree'] + self.people[0]._prop.keys())
+            outc.writerow(['recruiter', 'recruit', 'degree'] + list(self.people[0]._prop.keys()))
             for p in self.people:
                 if not p.sampled:
                     continue
@@ -233,15 +234,14 @@ class Network():
                 if p.sampleInfo['by'] != "GOD":
                     r = p.sampleInfo['by'].index
 
-                outc.writerow([ r, p.index, len(p.friends) ] + p._prop.values())
+                outc.writerow([ r, p.index, len(p.friends) ] + list(p._prop.values()))
     
     def full_CSV(self, fn):
         with open(fn, 'w') as outf:
             outc = writer(outf)
-            print(self.people[0]._prop.keys())
-            outc.writerow(['id', 'degree'] + self.people[0]._prop.keys())
+            outc.writerow(['id', 'degree'] + list(self.people[0]._prop.keys()))
             for p in self.people:
-                outc.writerow([p.index, len(p.friends)] + p._prop.values())
+                outc.writerow([p.index, len(p.friends)] + list(p._prop.values()))
 
     def spreadProperty(self, pname, numseeds=10):
         SIM_TIME = 500
