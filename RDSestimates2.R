@@ -4,10 +4,10 @@
 # Last updated: 4/25/2018
 
 ################################################################################
-# Set working directory
+# SET WORKING DIRECTORY:
 setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
 
-# Import libraries
+# IMPORT LIBRARIES:
 library(statnet)
 library(NetSim)
 library(EpiModel)
@@ -16,6 +16,8 @@ library(RDS)
 #library(sspse)
 
 ################################################################################
+# FUNCTIONS, PARAMETERS, AND SIMULATIONS:
+
 # AGING MODULE:
 ## At time step 1, actors are randomly assigned an age between 18 and 49 years
 ## At subsequent time steps, their age is incremented by one month
@@ -107,6 +109,8 @@ bfunc <- function(dat, at) {
         dat$nw <- add.vertices(dat$nw, nv = nBirths)
         newNodes <- (n + 1):(n + nBirths)
         dat$nw <- activate.vertices(dat$nw, onset = at, terminus = Inf, v = newNodes)
+        set.vertex.attribute(dat$nw, "blk", rbinom(nBirths, 1, 0.5), v=newNodes)
+        set.vertex.attribute(dat$nw, "nbd", sample(1:10, network.size(nw), replace=T), v=newNodes)
     }
     
     # Update attributes
@@ -134,11 +138,27 @@ bfunc <- function(dat, at) {
     return(dat)
 }
 
+#demographicInit <- function(dat, at) {
+#    
+#}
+
+
 # NETWORK MODEL PARAMETERIZATION:
-## Fit a basic, undirected, random-mixing model for our ERGM
-nw <- network.initialize(500, directed = FALSE)
-est <- netest(nw, formation = ~edges, target.stats = 150, 
+# Fit a basic, undirected, random-mixing model for our ERGM
+nw <- network.initialize(2000, directed = FALSE)
+
+# Set demographics
+set.vertex.attribute(nw, "blk", rbinom(network.size(nw), 1, 0.5))
+set.vertex.attribute(nw, "nbd", sample(1:10, network.size(nw), replace=T))
+
+nnodes = network.size(nw)
+nedges = nnodes
+
+formation <- ~edges + nodefactor("blk") + nodematch("blk") + nodematch("nbd")
+target.stats <- c(nedges, 1.2 * nnodes / 2, 1.2 * nedges / 2, nedges*.7)
+est <- netest(nw, formation, target.stats, 
               coef.diss = dissolution_coefs(~offset(edges), 60, mean(death.rates)))
+
 
 # EPIDEMIC MODEL PARAMETERIZATION:
 ## Collect newly created modules but leave transmission modules unchanged
@@ -154,7 +174,8 @@ init <- init.net(i.num = 50)
 
 control <- control.net(type = "SI", nsims = 5, nsteps = 250, 
                        deaths.FUN = dfunc, births.FUN = bfunc, aging.FUN = afunc, 
-                       depend = TRUE, save.network = FALSE)
+                       depend = TRUE, save.network = TRUE)
+
 
 # RESULTS:
 ## Simulated with network object, parameters, initial conditions, and control.net
@@ -168,6 +189,11 @@ plot(mod, popfrac = FALSE, main = "State Sizes", sim.lines = TRUE,
      qnts = FALSE, mean.smooth = FALSE)
 
 par(mfrow = c(1, 2))
+plot(mod, main = "State Prevalences")
+plot(mod, popfrac = FALSE, main = "State Sizes", sim.lines = TRUE, 
+     qnts = FALSE, mean.smooth = FALSE)
+
+par(mfrow = c(1, 2))
 plot(mod, y = "num", popfrac = FALSE, main = "Population Size", ylim = c(0, 1000))
 plot(mod, y = "meanAge", main = "Mean Age", ylim = c(18, 70))
 
@@ -175,14 +201,58 @@ par(mfrow = c(1, 2))
 plot(mod, y = "d.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "Deaths")
 plot(mod, y = "b.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "Births")
 
+
+# PLOT NETWORK RESULTS:
+n <- get_network(mod, sim = 1, collapse = TRUE, at = 25)
+plot(n, vertex.col="blk")
+
+
+# EXPORT NETWORK TO CSV:
+library(plyr)
+nodesCSV <- ldply( 1:NSIMULATIONS, function(si) {
+    ldply( seq(1,NSTEPS,NSTEPS/5), function(t) {
+        n <- get_network(mod, sim = si, collapse = TRUE, at = t)
+        ldply( 1:length(n$val), function(vi) {
+            c( si, t, vi, unlist( n$val[[vi]] )[c("blk","testatus")] )
+        } )
+    })
+})
+names(nodesCSV) <- c("sim_i","t","person","blk","testatus")
+
+edgesCSV <- ldply( 1:NSIMULATIONS, function(si) {
+    ldply( seq(1,NSTEPS,NSTEPS/5), function(t) {
+        n <- get_network(mod, sim = si, collapse = TRUE, at = t)
+        ldply( 1:length(n$mel), function(ei) {
+            c( si, t, n$mel[[ei]]$outl, n$mel[[ei]]$inl )
+        } )
+    })
+})
+names(edgesCSV) <- c("sim_i","t","out","in")
+
+
+
+
 # TWO GROUP MODELS:
 ## In two-group models, mixing between groups is purely heterogeneous: one group
 ##   only has contacts with the other group, there are no within-group contacts
 ##   such as with heterosexual partnerships (= 2 disease states * 2 groups), and
 ##   group-specific infection probability and act rate parameters are allowed
 ## Biological/behavioral heterogeneity between groups affects disease transmission
-## Total acts in group 1 group 2 must be equal (balance) by specifying act and
-##   controlling rate parameters for only one of the groups (= add .g2 suffix)
+## Total acts in group 1 and 2 must be equal (balance) by specifying act and
+##   controlling rate parameters for only one group by adding (.g2) suffixes to
+##   rate arguments and the (balance = "g1") argument
+## Specify birth rate for females only and set the Group 2 birth rate to NA here
 
 
+# SEIR MODELS:
+## Actors can be in an exposed state in which they are not infectious to others
+##   The exposed either remain exposed or become infected at later time steps
+##   Must code new model function and add (new.mod = <new mod>) to control params
 
+
+# VARIABLE MIXING MODEL
+## Q statistic varies propensity for mixing between high and low activity groups
+##   Fully dissortative mixing (high-risk people only mix with low-risk people)
+##   Partially dissortative mixing to proportional (random) mixing
+##   Partially assortative mixing
+##   Fully assortative mixing (high-risk people only mix with high-risk people)
