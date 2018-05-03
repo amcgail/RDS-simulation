@@ -36,19 +36,29 @@ def pullRDSsamples( folder ):
             p = Person(pinfo['person'])
             p['blk'] = pinfo['blk']
             #p['nbd'] = pinfo['nbd']
-            p['testatus'] = pinfo['testatus']
+            p['testatus'] = pinfo['testatus']   
             n.addPerson( p )
             
         for e in edges:
             f = e['out']
             t = e['in']
             n.pdict[f].addFriend( n.pdict[t] )
+
+        # at this point the networks will all be the same...
+        #                                                                                                   so just record the whole things for future analysis
+        #   (includes degree, etc. readable by my RDSestimates code)            
+        if i == 0:
+            n.full_CSV( path.join(folder, "RDS.full.csv") )
+        
         
         n.performRDS(numseeds=10, maxsample=150)
         n.RDS_CSV( path.join(folder, "RDSsample.%s.csv" % i) )
 
-nsizes = [100, 500, 1000, 1500, 3000]
-homos = [0.5, 0.8, 0.95]
+#nsizes = [100, 500, 1000, 1500, 3000]
+#homos = [0.5, 0.8, 0.95]
+
+nsizes = [500, 1000, 1500, 3000]
+homos = [0.5, 0.75, 0.85, 0.95]
 
 for nsize in nsizes:
     for homo in homos:
