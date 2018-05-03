@@ -5,10 +5,35 @@
 
 ################################################################################
 # Set working directory
-setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
+# setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
+
+
+NSTEPS = 10
+NSIMULATIONS = 1
+
+args <- commandArgs(trailingOnly = TRUE)
+
+folder <- paste( "data/ergm", paste( args, collapse="-" ), sep="/" )
+print(folder)
+
+dir.create(folder)
+
+nodeFn <- paste( folder, "nodes.csv", sep="/" )
+edgeFn <- paste( folder, "edges.csv", sep="/" )
+
+# ------maybe 500, 1000, 1500, 3000?
+nnodes = as.double( args[1] )
+ninfected = 10
+meandeg = 3
+nedges = nnodes*meandeg
+# mindeg = 1
+# maxdeg = 14
+# ------maybe 0.5, 0.8, 0.95 ?
+homo = as.double( args[2] )
+
 
 # install.packages(c("deSolve", "tergm", "ergm", "ape", "ergm.count"))
-# install.packages(c("statnet","NetSim","EpiModel","RDS"))
+#install.packages(c("statnet","NetSim","EpiModel","RDS"))
 
 # Import libraries
 library(statnet)
@@ -16,10 +41,9 @@ library(NetSim)
 library(EpiModel)
 #library(networkDynamicData)
 library(RDS)
+#library(igraph)
 #library(sspse)
-
-NSTEPS = 50
-NSIMULATIONS = 5
+library(network)
 
 ################################################################################
 # AGING MODULE:
@@ -149,19 +173,31 @@ demographicInit <- function(dat, at) {
 
 # NETWORK MODEL PARAMETERIZATION:
 ## Fit a basic, undirected, random-mixing model for our ERGM
-nw <- network.initialize(2000, directed = FALSE)
+nw <- network.initialize(nnodes, directed = FALSE)
 
 # set demographics
 set.vertex.attribute(nw, "blk", rbinom(network.size(nw), 1, 0.5))
 set.vertex.attribute(nw, "nbd", sample(1:10, network.size(nw), replace=T))
 
-nnodes = network.size(nw)
-nedges = nnodes
+formation <- ~edges + nodematch("blk") + nodematch("nbd")
+target.stats <- c(nedges, nedges * homo, nedges * homo)
 
-formation <- ~edges + nodefactor("blk") + nodematch("blk") + nodematch("nbd")
-target.stats <- c(nedges, 1.2 * nnodes / 2, 1.2 * nedges / 2, nedges*.7)
-est <- netest(nw, formation, target.stats, 
-              coef.diss = dissolution_coefs(~offset(edges), 60, mean(death.rates)))
+# are we actually getting anything better from ERGM!? it doesn't feel like it...
+if(F) {
+  spec <- nw ~ edges + nodematch('blk') + nodematch('nbd')
+  target.stats <- c(nedges, nedges*homo, nedges*homo)
+  
+  fit <- ergm(spec, target.stats = target.stats)
+  sim <- simulate(fit)
+  plot(sim, vertex.col="blk", cex=.1)
+  plot(sim, vertex.col="nbd", vertex.cex=.3)
+  
+  mixingmatrix(sim, "nbd")
+  
+  plot(degreedist(sim))
+}
+  
+est <- netest(nw, formation, target.stats, coef.diss = dissolution_coefs(~offset(edges), 60, mean(death.rates)))
 
 # EPIDEMIC MODEL PARAMETERIZATION:
 ## Collect newly created modules but leave transmission modules unchanged
@@ -172,8 +208,8 @@ est <- netest(nw, formation, target.stats,
 ## Model type, # simulations, and time steps per simulation set in control.net
 ## Replacement modules in each time step are run in order listed in control.net
 ## Module order may be set by module.order argument in control.net
-param <- param.net( inf.prob = 0.15, growth.rate = 0.00083, life.expt = 70 )
-init <- init.net(i.num = 50)
+param <- param.net( inf.prob = 0.01, growth.rate = 0.00083, life.expt = 70 )
+init <- init.net(i.num = ninfected)
 
 control <- control.net(type = "SI", nsims = NSIMULATIONS, nsteps = NSTEPS,
                        deaths.FUN = dfunc, births.FUN = bfunc, aging.FUN = afunc, 
@@ -184,33 +220,6 @@ control <- control.net(type = "SI", nsims = NSIMULATIONS, nsteps = NSTEPS,
 ## Summary statistics in epi ending in .num automatically compartments and .flow as flows
 mod <- netsim(est, param, init, control)
 mod
-
-par(mfrow = c(1,2))
-plot(mod, main = "State Prevalences")
-plot(mod, popfrac = FALSE, main = "State Sizes", sim.lines = TRUE, 
-     qnts = FALSE, mean.smooth = FALSE)
-
-par(mfrow = c(1, 2))
-plot(mod, y = "num", popfrac = FALSE, main = "Population Size", ylim = c(0, 1000))
-plot(mod, y = "meanAge", main = "Mean Age", ylim = c(18, 70))
-
-par(mfrow = c(1, 2))
-plot(mod, y = "d.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "Deaths")
-plot(mod, y = "b.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "Births")
-
-# TWO GROUP MODELS:
-## In two-group models, mixing between groups is purely heterogeneous: one group
-##   only has contacts with the other group, there are no within-group contacts
-##   such as with heterosexual partnerships (= 2 disease states * 2 groups), and
-##   group-specific infection probability and act rate parameters are allowed
-## Biological/behavioral heterogeneity between groups affects disease transmission
-## Total acts in group 1 group 2 must be equal (balance) by specifying act and
-##   controlling rate parameters for only one of the groups (= add .g2 suffix)
-
-
-# plot the network
-n <- get_network(mod, sim = 1, collapse = TRUE, at = 25)
-plot(n, vertex.col="blk")
 
 # export network to CSV
 library(plyr)
@@ -234,5 +243,31 @@ edgesCSV <- ldply( 1:NSIMULATIONS, function(si) {
 })
 names(edgesCSV) <- c("sim_i","t","out","in")
 
-write.csv(nodesCSV, "data/ergm/nodes.csv")
-write.csv(edgesCSV, "data/ergm/edges.csv")
+if(F) {
+  # basic attributes of prevalence
+  par(mfrow = c(1,2))
+  plot(mod, main = "State Prevalences")
+  plot(mod, popfrac = FALSE, main = "State Sizes", sim.lines = TRUE, 
+       qnts = FALSE, mean.smooth = FALSE)
+  
+  par(mfrow = c(1, 2))
+  plot(mod, y = "num", popfrac = FALSE, main = "Population Size", ylim = c(0, 1000))
+  plot(mod, y = "meanAge", main = "Mean Age", ylim = c(18, 70))
+  
+  par(mfrow = c(1, 2))
+  plot(mod, y = "d.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "Deaths")
+  plot(mod, y = "b.flow", popfrac = FALSE, mean.smooth = TRUE, qnts = 1, main = "Births")
+}
+
+if(F) {
+  # plot the network
+  n <- get_network(mod, sim = 1, collapse = TRUE, at = 25)
+  
+  set.vertex.attribute(n, "testatus", nodesCSV[nodesCSV$t==41, "testatus"])
+  
+  plot(n, vertex.col="blk")
+  plot(n, vertex.col="testatus")
+}
+  
+write.csv(nodesCSV, nodeFn)
+write.csv(edgesCSV, edgeFn)

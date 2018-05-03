@@ -1,4 +1,15 @@
 library(RDS)
+
+
+toEstimate <- list.dirs("data/ergm")
+
+for( d in toEstimate) {
+  # for some reason this shows up...
+  if( d == "data/ergm" ) next;
+  print(d)
+}
+
+
 #d <- read.csv('data/kronecker.RDSsample.csv')
 #d <- read.csv('data/smallNeighborhood.full.csv')
 d.full <- read.csv('data/ergm/RDSsample.full.csv')
