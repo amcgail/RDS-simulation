@@ -215,11 +215,11 @@ class Network():
         sampled = filter( lambda x: x.sampled, self.people )
         sampled = list(sampled)
 
-        print(len(sampled), " individuals sampled")
+        # print(len(sampled), " individuals sampled")
         
-        print( "maxsample", maxsample )
+        # print( "maxsample", maxsample )
         if len(sampled) < maxsample / 2:
-            print( "..sample too small. restarting")
+            print( "..sample", len(sampled), "too small (need ", maxsample/2, "). restarting...")
             return self.performRDS(numseeds=numseeds, maxsample=maxsample)
 
     def RDS_CSV(self, fn):

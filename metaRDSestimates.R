@@ -1,14 +1,18 @@
 library(RDS)
+library(plyr)
+
+args <- commandArgs(trailingOnly = TRUE)
 
 N_RDS_SAMPLES <- 200
 
-toEstimate <- list.dirs("data/ergm")
+basePath <- args[1]
+toEstimate <- list.dirs(basePath)
 
 bigDf <- NULL
 
 for( dr in toEstimate) {
   # for some reason this shows up...
-  if( dr == "data/ergm" ) next;
+  if( dr == basePath ) next;
   d.full <- read.csv( file.path( dr, 'RDS.full.csv' ) )
   
   for( i in 0:N_RDS_SAMPLES ) {
@@ -67,16 +71,27 @@ for( dr in toEstimate) {
   }
 }
 
-for(pop in unique(bigDf$pop)) {
-  toPlot <- c("testatus_i_rdsIest", "testatus_s_rdsIest", "testatus_0_rdsIest", "testatus_i_rdsIIest", "testatus_s_rdsIIest", "testatus_0_rdsIIest")
-  myData <- bigDf[bigDf$pop == pop, c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")]
-  trPlot <- c("testatus_i_true", "testatus_s_true", "testatus_0_true", "testatus_i_true", "testatus_s_true", "testatus_0_true")
+if(T) {
+  dir.create( file.path(basePath, "img") )
   
-  par(mfrow=c(3,2))
-  for(attri in range(length(toPlot))) {
-    attr <- toPlot[attri]
-    trValue <- myData[,trPlot[attri]]
-    hist(myData[,attr], main=paste(pop, attr), breaks=15)
-    abline(v=trValue, col="red")
+  # these plots are nice...
+  for(pop in unique(bigDf$pop)) {
+    toPlot <- c("testatus_i_rdsIest", "testatus_s_rdsIest", "testatus_0_rdsIest", "testatus_i_rdsIIest", "testatus_s_rdsIIest", "testatus_0_rdsIIest")
+    myData <- bigDf[bigDf$pop == pop, c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")]
+    trPlot <- c("testatus_i_true", "testatus_s_true", "testatus_0_true", "testatus_i_true", "testatus_s_true", "testatus_0_true")
+    
+    for(attri in range(length(toPlot))) {
+      attr <- toPlot[attri]
+      
+      png( file.path(args[1], "img", paste(basename(pop),".",attr,".png")) )
+      
+      trValue <- myData[,trPlot[attri]]
+      hist(myData[,attr], main=paste(pop, attr), breaks=15)
+      abline(v=trValue, col="red")
+      
+      dev.off()
+    }
   }
 }
+
+write.csv( bigDf, file.path( args[1], "RDSanalysis.csv" ) )

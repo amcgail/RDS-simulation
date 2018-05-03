@@ -9,6 +9,15 @@ import os
 from lib import *
 from csv import DictReader
 from os import path
+from shutil import copy
+
+outdir = path.join('data',"pinf=0.15")
+scriptdir = path.join(outdir, "scripts")
+
+os.mkdir(outdir)
+os.mkdir(scriptdir)
+copy("networkSimulation.alec.R", scriptdir)
+copy("metaRDSestimates.R", scriptdir)
 
 NUM_RDS_SAMPLES = 200
 
@@ -28,7 +37,8 @@ def pullRDSsamples( folder ):
     print(len(nodes), "nodes found")
     
     for i in range(NUM_RDS_SAMPLES):
-        print( "RDS SAMPLE %s" % i )
+        if i % 50 == 0:
+            print( "RDS SAMPLE %s" % i )
         
         n = Network()
         
@@ -50,23 +60,31 @@ def pullRDSsamples( folder ):
         if i == 0:
             n.full_CSV( path.join(folder, "RDS.full.csv") )
         
-        
-        n.performRDS(numseeds=10, maxsample=150)
+        n.performRDS(numseeds=10, maxsample=300)
         n.RDS_CSV( path.join(folder, "RDSsample.%s.csv" % i) )
 
 #nsizes = [100, 500, 1000, 1500, 3000]
 #homos = [0.5, 0.8, 0.95]
 
-nsizes = [500, 1000, 1500, 3000]
-homos = [0.5, 0.75, 0.85, 0.95]
+nsizes = [1000, 2000, 3000]
+homos = [0, 0.25, 0.5, 0.75]
 
 for nsize in nsizes:
     for homo in homos:
         params = (nsize, homo)
-        print(params)
+        print("Epi model", params)
         
-        os.system("Rscript --vanilla networkSimulation.alec.R %s %s" % (nsize, homo))
+        print("..Rendering epi graph...")
+        os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % (outdir, nsize, homo))
         
-        folder = path.join('data','ergm','%s-%s' % params)
+        folder = path.join(outdir,'%s-%s' % params)
         
+
+        print("..Pulling 200 RDS samples...")
         pullRDSsamples( folder )
+        
+
+print(" now that everything is pulled...")
+print(" let's compute RDS statistics!")
+
+os.system("Rscript --vanilla metaRDSestimates.R %s" % outdir)

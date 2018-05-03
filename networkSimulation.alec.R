@@ -8,13 +8,17 @@
 # setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
 
 
-NSTEPS = 10
+NSTEPS = 50
 NSIMULATIONS = 1
 
 args <- commandArgs(trailingOnly = TRUE)
 
-folder <- paste( "data/ergm", paste( args, collapse="-" ), sep="/" )
-print(folder)
+fn <- args[1]
+
+# delete first arg
+args <- args[-1]
+
+folder <- paste( fn, paste( args, collapse="-" ), sep="/" )
 
 dir.create(folder)
 
@@ -30,6 +34,7 @@ nedges = nnodes*meandeg
 # maxdeg = 14
 # ------maybe 0.5, 0.8, 0.95 ?
 homo = as.double( args[2] )
+infectionProb = 0.05
 
 
 # install.packages(c("deSolve", "tergm", "ergm", "ape", "ergm.count"))
@@ -76,8 +81,8 @@ afunc <- function(dat, at) {
 ##   distributions which probabilities equal to their age-specific risks
 ages <- 18:49
 death.rates <- 1/(70*12 - ages*12)
-par(mar = c(3.2, 3.2, 1, 1), mgp = c(2, 1, 0))
-plot(ages, death.rates, pch = 20, xlab = "age", ylab = "Death Risk")
+#par(mar = c(3.2, 3.2, 1, 1), mgp = c(2, 1, 0))
+#plot(ages, death.rates, pch = 20, xlab = "age", ylab = "Death Risk")
 
 dfunc <- function(dat, at) {
     
@@ -175,12 +180,17 @@ demographicInit <- function(dat, at) {
 ## Fit a basic, undirected, random-mixing model for our ERGM
 nw <- network.initialize(nnodes, directed = FALSE)
 
+n_nbds <- 10
+
 # set demographics
 set.vertex.attribute(nw, "blk", rbinom(network.size(nw), 1, 0.5))
-set.vertex.attribute(nw, "nbd", sample(1:10, network.size(nw), replace=T))
+set.vertex.attribute(nw, "nbd", sample(1:n_nbds, network.size(nw), replace=T))
+
+homo_blk <- homo * nedges + nedges / 2
+homo_nbd <- homo * nedges + nedges / n_nbds
 
 formation <- ~edges + nodematch("blk") + nodematch("nbd")
-target.stats <- c(nedges, nedges * homo, nedges * homo)
+target.stats <- c(nedges, homo_blk, homo_nbd)
 
 # are we actually getting anything better from ERGM!? it doesn't feel like it...
 if(F) {
@@ -208,7 +218,7 @@ est <- netest(nw, formation, target.stats, coef.diss = dissolution_coefs(~offset
 ## Model type, # simulations, and time steps per simulation set in control.net
 ## Replacement modules in each time step are run in order listed in control.net
 ## Module order may be set by module.order argument in control.net
-param <- param.net( inf.prob = 0.01, growth.rate = 0.00083, life.expt = 70 )
+param <- param.net( inf.prob = infectionProb, growth.rate = 0.00083, life.expt = 70 )
 init <- init.net(i.num = ninfected)
 
 control <- control.net(type = "SI", nsims = NSIMULATIONS, nsteps = NSTEPS,
@@ -266,7 +276,7 @@ if(F) {
   set.vertex.attribute(n, "testatus", nodesCSV[nodesCSV$t==41, "testatus"])
   
   plot(n, vertex.col="blk")
-  plot(n, vertex.col="testatus")
+  plot(n, vertex.col="testatus", vertex.cex=.5, edge.cex=0)
 }
   
 write.csv(nodesCSV, nodeFn)
