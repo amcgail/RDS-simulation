@@ -11,7 +11,7 @@ from csv import DictReader
 from os import path
 from shutil import copy
 
-outdir = path.join('data',"pinf=0.05_50steps_3nbd")
+outdir = path.join('data',"pinf=0.05_50steps_6nbd_SIS")
 scriptdir = path.join(outdir, "scripts")
 
 os.mkdir(outdir)
@@ -76,16 +76,18 @@ homos = [0, 0.25, 0.5, 0.75]
 # this code is sort of cool
 
 from itertools import product
-from multiprocessing import Pool
+from multiprocessing import Pool, Process
+import subprocess
 
 def runEverything(params):
     print("Epi model", params)
     
     print("..Rendering epi graph...")
-    os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + params))
+    simCmd = "Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + list(params))
+    simOut = subprocess.check_output(simCmd, shell=True)
+    print(simOut)
     
     folder = path.join(outdir,'%s-%s' % params)
-    
 
     print("..Pulling 200 RDS samples...")
     pullRDSsamples( folder )
@@ -93,9 +95,17 @@ def runEverything(params):
 # product generates a cartesian product
 # this context manager only works in Python 3.3+
 # splits the application of the function across 4 cores :)
-with Pool(4) as p:
-    p.map( runEverything, product(nsizes, homos) )
-        
+#with Pool(processes=4) as p:
+#    p.map( func=runEverything, iterable=product(nsizes, homos), chunksize=1 )
+ 
+jobs = []
+for params in product(nsizes, homos):
+    j = Process(target=runEverything, args=(params,))
+    j.run()
+
+# wait for them all to complete
+for j in jobs:
+    j.join()
 
 print(" now that everything is pulled...")
 print(" let's compute RDS statistics!")

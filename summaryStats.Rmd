@@ -1,0 +1,24 @@
+---
+Title: Summary Statistics
+output: pdf_document
+params:
+  basePath: ""
+---
+
+```{r, echo=FALSE}
+setwd("~/projects/RDS-simulation")
+```
+
+```{r}
+paste("working out of directory", params$basePath)
+dr <- file.path(params$basePath, '1000-0.5', 'RDS.full.csv' )
+d.full <- read.csv(dr)
+
+table(d.full$blk)
+hist(d.full$degree)
+table(d.full$testatus)
+```
+
+```{r, echo=FALSE}
+
+```

@@ -92,6 +92,11 @@ if(T) {
       dev.off()
     }
   }
+  
+  library(rmarkdown)
+  rmarkdown::render("summaryStats.Rmd", params=list(
+    basePath=basePath
+  ))
 }
 
 write.csv( bigDf, file.path( args[1], "RDSanalysis.csv" ) )
