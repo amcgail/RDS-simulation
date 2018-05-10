@@ -72,19 +72,29 @@ def pullRDSsamples( folder ):
 nsizes = [1000, 2000, 3000]
 homos = [0, 0.25, 0.5, 0.75]
 
-for nsize in nsizes:
-    for homo in homos:
-        params = (nsize, homo)
-        print("Epi model", params)
-        
-        print("..Rendering epi graph...")
-        os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % (outdir, nsize, homo))
-        
-        folder = path.join(outdir,'%s-%s' % params)
-        
+# we're going to try and parellelize this!
+# this code is sort of cool
 
-        print("..Pulling 200 RDS samples...")
-        pullRDSsamples( folder )
+from itertools import product
+from multiprocessing import Pool
+
+def runEverything(params):
+    print("Epi model", params)
+    
+    print("..Rendering epi graph...")
+    os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + params))
+    
+    folder = path.join(outdir,'%s-%s' % params)
+    
+
+    print("..Pulling 200 RDS samples...")
+    pullRDSsamples( folder )
+
+# product generates a cartesian product
+# this context manager only works in Python 3.3+
+# splits the application of the function across 4 cores :)
+with Pool(4) as p:
+    p.map( runEverything, product(nsizes, homos) )
         
 
 print(" now that everything is pulled...")
