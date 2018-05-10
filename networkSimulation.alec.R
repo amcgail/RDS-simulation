@@ -7,10 +7,6 @@
 # Set working directory
 # setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
 
-
-NSTEPS = 50
-NSIMULATIONS = 1
-
 args <- commandArgs(trailingOnly = TRUE)
 
 fn <- args[1]
@@ -35,6 +31,9 @@ nedges = nnodes*meandeg
 # ------maybe 0.5, 0.8, 0.95 ?
 homo = as.double( args[2] )
 infectionProb = 0.05
+NSTEPS = 50
+NSIMULATIONS = 1
+n_nbds <- 3
 
 
 # install.packages(c("deSolve", "tergm", "ergm", "ape", "ergm.count"))
@@ -179,8 +178,6 @@ demographicInit <- function(dat, at) {
 # NETWORK MODEL PARAMETERIZATION:
 ## Fit a basic, undirected, random-mixing model for our ERGM
 nw <- network.initialize(nnodes, directed = FALSE)
-
-n_nbds <- 10
 
 # set demographics
 set.vertex.attribute(nw, "blk", rbinom(network.size(nw), 1, 0.5))

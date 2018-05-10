@@ -11,13 +11,16 @@ from csv import DictReader
 from os import path
 from shutil import copy
 
-outdir = path.join('data',"pinf=0.15")
+outdir = path.join('data',"pinf=0.05_50steps_3nbd")
 scriptdir = path.join(outdir, "scripts")
 
 os.mkdir(outdir)
 os.mkdir(scriptdir)
+
+# keep these for later reference!
 copy("networkSimulation.alec.R", scriptdir)
 copy("metaRDSestimates.R", scriptdir)
+copy("metaScript.py", scriptdir)
 
 NUM_RDS_SAMPLES = 200
 

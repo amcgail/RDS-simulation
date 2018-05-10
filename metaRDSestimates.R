@@ -86,7 +86,7 @@ if(T) {
       png( file.path(args[1], "img", paste(basename(pop),".",attr,".png")) )
       
       trValue <- myData[,trPlot[attri]]
-      hist(myData[,attr], main=paste(pop, attr), breaks=15)
+      hist(myData[,attr], main=paste(pop, attr), breaks=20)
       abline(v=trValue, col="red")
       
       dev.off()
@@ -95,3 +95,19 @@ if(T) {
 }
 
 write.csv( bigDf, file.path( args[1], "RDSanalysis.csv" ) )
+
+if(F) {
+  library(igraph)
+  library(intergraph)
+  
+  n.ig <- asIgraph(n)
+  
+  V(n.ig)$frame.color <- "white"
+  V(n.ig)$color <- "orange"
+  V(n.ig)$label <- ""
+  V(n.ig)$size <- 10
+  E(n.ig)$arrow.mode <- 0
+  
+  n.sub <- induced_subgraph(graph=n.ig, vids=sample(V(n.ig), size=200))
+  plot(n.sub)
+}
