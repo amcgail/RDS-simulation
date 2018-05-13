@@ -82,7 +82,7 @@ def runEverything(params):
     print("Epi model", params)
     
     print("..Rendering epi graph...")
-    os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + params))
+    os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + list(params)))
     
     folder = path.join(outdir,'%s-%s' % params)
     
@@ -93,8 +93,8 @@ def runEverything(params):
 # product generates a cartesian product
 # this context manager only works in Python 3.3+
 # splits the application of the function across 4 cores :)
-with Pool(4) as p:
-    p.map( runEverything, product(nsizes, homos) )
+with Pool(processes=4) as p:
+    p.map( func=runEverything, iterable=product(nsizes, homos), chunksize=1 )
         
 
 print(" now that everything is pulled...")
