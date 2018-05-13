@@ -1,5 +1,6 @@
 library(RDS)
 library(plyr)
+library(rmarkdown)
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -10,20 +11,27 @@ toEstimate <- list.dirs(basePath)
 
 bigDf <- NULL
 
+toEstimate <- sample(toEstimate)
+
 for( dr in toEstimate) {
-  # for some reason this shows up...
-  if( dr == basePath ) next;
+  if( !file.exists(file.path( dr, 'RDS.full.csv' )) )
+    next;
+  
   d.full <- read.csv( file.path( dr, 'RDS.full.csv' ) )
   
+  rmarkdown::render("summaryStats.Rmd", params=list(
+    basePath=dr
+  ), output_file = file.path(dr, 'summaryStats.pdf'))
+  
   for( i in 0:N_RDS_SAMPLES ) {
-    print(paste(dr, i))
     sampleFn <- file.path( dr, paste("RDSsample", i, "csv", sep=".") )
+    print(sampleFn)
     if( !file.exists(sampleFn) ) {
       print( c('Warning... Expected file ', sampleFn, ' to exist...') )
       next;
     }
     
-    d <- read.csv( sampleFn )
+    d <- read.csv( sampleFn, colClasses=c("integer", "integer", "integer", "character", "character") )
     # all seeds should be given the same unique identifier
     seeds <- d[ is.na( d$recruiter ), "recruit"]
     d[ d$recruit %in% seeds, "recruit" ] <- -1
@@ -76,11 +84,32 @@ if(T) {
   
   # these plots are nice...
   for(pop in unique(bigDf$pop)) {
-    toPlot <- c("testatus_i_rdsIest", "testatus_s_rdsIest", "testatus_0_rdsIest", "testatus_i_rdsIIest", "testatus_s_rdsIIest", "testatus_0_rdsIIest")
-    myData <- bigDf[bigDf$pop == pop, c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")]
-    trPlot <- c("testatus_i_true", "testatus_s_true", "testatus_0_true", "testatus_i_true", "testatus_s_true", "testatus_0_true")
+    toPlot <- c(
+      "testatus_i_rdsIest", 
+      "testatus_s_rdsIest", 
+      "testatus_r_rdsIest", 
+      "testatus_0_rdsIest", 
+      "testatus_i_rdsIIest", 
+      "testatus_s_rdsIIest", 
+      "testatus_r_rdsIIest", 
+      "testatus_0_rdsIIest"
+    )
+    myData <- bigDf[bigDf$pop == pop, ] #c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")
+    trPlot <- c(
+      "testatus_i_true", 
+      "testatus_s_true", 
+      "testatus_r_true", 
+      "testatus_0_true", 
+      "testatus_i_true", 
+      "testatus_s_true", 
+      "testatus_r_true", 
+      "testatus_0_true"
+    )
     
-    for(attri in range(length(toPlot))) {
+    for(attri in 1:length(toPlot)) {
+      if( !( toPlot[attri] %in% names(myData)) ) {
+        next;
+      }
       attr <- toPlot[attri]
       
       png( file.path(args[1], "img", paste(basename(pop),".",attr,".png")) )

@@ -11,7 +11,7 @@ from csv import DictReader
 from os import path
 from shutil import copy
 
-outdir = path.join('data',"pinf=0.05_50steps_3nbd")
+outdir = path.join('data',"firstRealOne")
 scriptdir = path.join(outdir, "scripts")
 
 os.mkdir(outdir)
@@ -31,7 +31,7 @@ def pullRDSsamples( folder ):
         nodes = list(DictReader(nf))
         
     # we only care about the final result!
-    maxt = max(nodes, key=lambda x: int(x['t']))['t']
+    maxt = max(nodes, key=lambda x: float(x['t']))['t']
     print(maxt)
     
     edges = filter( lambda x: x['sim_i'] == '1' and x['t'] == maxt, edges )
@@ -69,23 +69,26 @@ def pullRDSsamples( folder ):
 #nsizes = [100, 500, 1000, 1500, 3000]
 #homos = [0.5, 0.8, 0.95]
 
-nsizes = [1000, 2000, 3000]
-homos = [0, 0.25, 0.5, 0.75]
+nsizes = [2500]
+homos = [0.25]
 
 # we're going to try and parellelize this!
 # this code is sort of cool
 
 from itertools import product
-from multiprocessing import Pool
+from multiprocessing import Pool, Process
+import subprocess
 
 def runEverything(params):
     print("Epi model", params)
     
     print("..Rendering epi graph...")
-    os.system("Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + list(params)))
+    simCmd = "Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + list(params))
+    print("running '%s'" % simCmd)
+    simOut = subprocess.check_output(simCmd, shell=True)
+    print(simOut)
     
     folder = path.join(outdir,'%s-%s' % params)
-    
 
     print("..Pulling 200 RDS samples...")
     pullRDSsamples( folder )
@@ -93,11 +96,23 @@ def runEverything(params):
 # product generates a cartesian product
 # this context manager only works in Python 3.3+
 # splits the application of the function across 4 cores :)
-with Pool(processes=4) as p:
-    p.map( func=runEverything, iterable=product(nsizes, homos), chunksize=1 )
-        
+#with Pool(processes=4) as p:
+#    p.map( func=runEverything, iterable=product(nsizes, homos), chunksize=1 )
+ 
+jobs = []
+for params in product(nsizes, homos):
+    j = Process(target=runEverything, args=(params,))
+    j.run()
+
+print("Queued all network simulation processes.")
+
+# wait for them all to complete
+for j in jobs:
+    j.join()
 
 print(" now that everything is pulled...")
 print(" let's compute RDS statistics!")
 
-os.system("Rscript --vanilla metaRDSestimates.R %s" % outdir)
+statsCmd = "Rscript --vanilla metaRDSestimates.R %s" % outdir
+os.system(statsCmd)
+print("running '%s'" % statsCmd)
