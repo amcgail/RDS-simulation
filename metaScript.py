@@ -11,7 +11,7 @@ from csv import DictReader
 from os import path
 from shutil import copy
 
-outdir = path.join('data',"pinf=0.05_50steps_6nbd_SIS")
+outdir = path.join('data',"firstRealOne")
 scriptdir = path.join(outdir, "scripts")
 
 os.mkdir(outdir)
@@ -31,7 +31,7 @@ def pullRDSsamples( folder ):
         nodes = list(DictReader(nf))
         
     # we only care about the final result!
-    maxt = max(nodes, key=lambda x: int(x['t']))['t']
+    maxt = max(nodes, key=lambda x: float(x['t']))['t']
     print(maxt)
     
     edges = filter( lambda x: x['sim_i'] == '1' and x['t'] == maxt, edges )
@@ -69,8 +69,8 @@ def pullRDSsamples( folder ):
 #nsizes = [100, 500, 1000, 1500, 3000]
 #homos = [0.5, 0.8, 0.95]
 
-nsizes = [1000, 2000, 3000]
-homos = [0, 0.25, 0.5, 0.75]
+nsizes = [2500]
+homos = [0.25]
 
 # we're going to try and parellelize this!
 # this code is sort of cool
@@ -84,6 +84,7 @@ def runEverything(params):
     
     print("..Rendering epi graph...")
     simCmd = "Rscript --vanilla networkSimulation.alec.R %s %s %s" % tuple( [outdir] + list(params))
+    print("running '%s'" % simCmd)
     simOut = subprocess.check_output(simCmd, shell=True)
     print(simOut)
     
@@ -103,6 +104,8 @@ for params in product(nsizes, homos):
     j = Process(target=runEverything, args=(params,))
     j.run()
 
+print("Queued all network simulation processes.")
+
 # wait for them all to complete
 for j in jobs:
     j.join()
@@ -110,4 +113,6 @@ for j in jobs:
 print(" now that everything is pulled...")
 print(" let's compute RDS statistics!")
 
-os.system("Rscript --vanilla metaRDSestimates.R %s" % outdir)
+statsCmd = "Rscript --vanilla metaRDSestimates.R %s" % outdir
+os.system(statsCmd)
+print("running '%s'" % statsCmd)

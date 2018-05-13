@@ -5,7 +5,7 @@
 
 ################################################################################
 # SET WORKING DIRECTORY:
-setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
+#setwd("/Users/amruch/Documents/Research/~ Projects/Cornell Research/RDS-simulation")
 
 # IMPORT LIBRARIES:
 library(statnet)

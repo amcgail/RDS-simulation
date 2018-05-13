@@ -6,19 +6,16 @@ params:
 ---
 
 ```{r, echo=FALSE}
-setwd("~/projects/RDS-simulation")
+# basePath <- file.path("~/projects/RDS-simulation", params$basePath)
 ```
 
 ```{r}
-paste("working out of directory", params$basePath)
-dr <- file.path(params$basePath, '1000-0.5', 'RDS.full.csv' )
-d.full <- read.csv(dr)
+# paste("working out of directory", as.char(basePath))
+# indir <- file.path(basePath, 'RDS.full.csv' )
+# d.full <- read.csv(indir)
 
 table(d.full$blk)
-hist(d.full$degree)
 table(d.full$testatus)
-```
 
-```{r, echo=FALSE}
-
+hist(d.full$degree)
 ```
