@@ -1,0 +1,410 @@
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+
+* Starting Network Simulation
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 2/24
+Incidence: 2
+Prevalence: 12
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 3/24
+Incidence: 2
+Prevalence: 14
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 4/24
+Incidence: 0
+Prevalence: 14
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 5/24
+Incidence: 2
+Prevalence: 16
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 6/24
+Incidence: 4
+Prevalence: 20
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 7/24
+Incidence: 1
+Prevalence: 21
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 8/24
+Incidence: 4
+Prevalence: 25
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 9/24
+Incidence: 6
+Prevalence: 31
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 10/24
+Incidence: 9
+Prevalence: 40
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 11/24
+Incidence: 11
+Prevalence: 51
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 12/24
+Incidence: 9
+Prevalence: 60
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 13/24
+Incidence: 12
+Prevalence: 72
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 14/24
+Incidence: 16
+Prevalence: 88
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 15/24
+Incidence: 12
+Prevalence: 100
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 16/24
+Incidence: 22
+Prevalence: 122
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 17/24
+Incidence: 25
+Prevalence: 147
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 18/24
+Incidence: 20
+Prevalence: 167
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 19/24
+Incidence: 32
+Prevalence: 199
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 20/24
+Incidence: 38
+Prevalence: 237
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 21/24
+Incidence: 46
+Prevalence: 283
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 22/24
+Incidence: 62
+Prevalence: 345
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 23/24
+Incidence: 68
+Prevalence: 413
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 24/24
+Incidence: 71
+Prevalence: 484
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 2/24
+Incidence: 2
+Prevalence: 12
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 3/24
+Incidence: 2
+Prevalence: 14
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 4/24
+Incidence: 1
+Prevalence: 15
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 5/24
+Incidence: 2
+Prevalence: 17
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 6/24
+Incidence: 3
+Prevalence: 20
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 7/24
+Incidence: 4
+Prevalence: 24
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 8/24
+Incidence: 4
+Prevalence: 28
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 9/24
+Incidence: 7
+Prevalence: 35
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 10/24
+Incidence: 7
+Prevalence: 42
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 11/24
+Incidence: 7
+Prevalence: 49
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 12/24
+Incidence: 6
+Prevalence: 55
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 13/24
+Incidence: 11
+Prevalence: 66
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 14/24
+Incidence: 17
+Prevalence: 83
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 15/24
+Incidence: 20
+Prevalence: 103
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 16/24
+Incidence: 29
+Prevalence: 132
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 17/24
+Incidence: 28
+Prevalence: 160
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 18/24
+Incidence: 36
+Prevalence: 196
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 19/24
+Incidence: 28
+Prevalence: 224
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 20/24
+Incidence: 36
+Prevalence: 260
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 21/24
+Incidence: 44
+Prevalence: 304
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 22/24
+Incidence: 54
+Prevalence: 358
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 23/24
+Incidence: 54
+Prevalence: 412
+Population: 4000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 24/24
+Incidence: 69
+Prevalence: 481
+Population: 4000
+----------------------------EpiModel Simulation
+=======================
+Model class: netsim
+
+Simulation Summary
+-----------------------
+Model type: SI
+No. simulations: 2
+No. time steps: 24
+No. NW modes: 1
+
+Model Parameters
+-----------------------
+inf.prob = 0.0067
+act.rate = 8
+rec.rate = 0.1666667
+
+Model Output
+-----------------------
+Variables: s.num i.num num si.flow
+Networks: sim1 sim2
+Transmissions: sim1 sim2null device 
+          1 

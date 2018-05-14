@@ -7,10 +7,33 @@ args <- commandArgs(trailingOnly = TRUE)
 N_RDS_SAMPLES <- 200
 
 basePath <- args[1]
-#basePath <- "simulationRuns/sim_4/"
+#basePath <- "simulationRuns/sim_6/"
 toEstimate <- list.dirs(file.path(basePath, "data"), recursive=F, full.names=T)
 
 bigDfFn <- file.path( basePath, "RDSanalysis.csv" )
+
+
+# generate a list of all columns I'll be interested in, along with their true values!
+
+toPlot <- NULL
+newcols <- outer("testatus_", c("i","s","r","0"), FUN="paste0")
+newcols <- outer( paste0(newcols,"_"), c("rdsIest","rdsIIest"), FUN="paste0")
+toPlot <- c(toPlot, newcols)
+
+newcols <- outer("blk_", c("1","0"), FUN="paste0")
+newcols <- outer( paste0(newcols,"_"), c("rdsIest","rdsIIest"), FUN="paste0")
+toPlot <- c(toPlot, newcols)
+
+trPlot <- NULL
+newcols <- outer("testatus_", c("i","s","r","0"), FUN="paste0")
+newcols <- outer( paste0(newcols,"_"), c("true","true"), FUN="paste0")
+trPlot <- c(trPlot, newcols)
+
+newcols <- outer("blk_", c("1","0"), FUN="paste0")
+newcols <- outer( paste0(newcols,"_"), c("true","true"), FUN="paste0")
+trPlot <- c(trPlot, newcols)
+
+
 
 if( file.exists(bigDfFn) ){
   bigDf <- read.csv(bigDfFn)
@@ -41,21 +64,33 @@ if( file.exists(bigDfFn) ){
       dfr <- list(i, dr)
       names(dfr) <- c("sampleNo", "pop")
       
-      rds.df <- as.rds.data.frame(d, id = "recruit", network.size = "degree", population.size = 200000, max.coupons = 3, recruiter.id = "recruiter")
+      rds.df <- as.rds.data.frame(d, id = "recruit", network.size = "degree", population.size = NULL, max.coupons = 3, recruiter.id = "recruiter")
       cumulative.estimate(rds.df, outcome.variable = "blk")
       
       rdsEstimates <- function (attr) {
+        # the names for this row
         fn <- NULL
+        
+        # the values for this row
         fr <- NULL
         
+        # make the RDS computations
         eIte <- RDS.I.estimates(rds.df, outcome.variable = attr)
         eIIte <- RDS.II.estimates(rds.df, outcome.variable = attr)
         
+        # add the estimates for this RDS sample
         fn <- c(fn, paste(attr, "_", names(eIte$estimate), "_rdsIest", sep="") )
         fn <- c(fn, paste(attr, "_", names(eIIte$estimate), "_rdsIIest", sep="") )
         
         fr <- c(fr, eIte$estimate)
         fr <- c(fr, eIIte$estimate)
+        
+        # add the se for this RDS sample
+        fn <- c(fn, paste(attr, "_", rownames(eIte$interval), "_rdsIse", sep="") )
+        fn <- c(fn, paste(attr, "_", rownames(eIIte$interval), "_rdsIIse", sep="") )
+        
+        fr <- c(fr, eIte$interval[,"s.e."])
+        fr <- c(fr, eIIte$interval[,"s.e."])
         
         true <- prop.table(table(d.full[,attr]))
         
@@ -82,43 +117,25 @@ if( file.exists(bigDfFn) ){
   write.csv( bigDf, bigDfFn )
 }
 
-# render summary pdfs!
-for( dr in toEstimate ) {
-  d.full <- read.csv( file.path( dr, 'RDS.full.csv' ) )
-  rmarkdown::render("episim/summaryStats.Rmd", params=list(
-    basePath=dr
-  ), output_file = file.path( "..", dr, "img", 'summaryStats.pdf'))
+if(F) {
+  # render summary pdfs!
+  for( dr in toEstimate ) {
+    d.full <- read.csv( file.path( dr, 'RDS.full.csv' ) )
+    rmarkdown::render("episim/summaryStats.Rmd", params=list(
+      basePath=dr
+    ), output_file = file.path( "..", dr, "img", 'summaryStats.pdf'))
+  }
 }
-
+  
 if(T) {
   imgDir <- file.path(basePath, "img")
-  if( !dir.exists(imgDir) ) {
-    dir.create( imgDir )
-  }
+  dir.create( imgDir, showWarnings=F )
   
+  
+  dir.create( file.path(imgDir,"ests"), showWarnings=F )
   # these plots are nice...
   for(pop in unique(bigDf$pop)) {
-    toPlot <- c(
-      "testatus_i_rdsIest", 
-      "testatus_s_rdsIest", 
-      "testatus_r_rdsIest", 
-      "testatus_0_rdsIest", 
-      "testatus_i_rdsIIest", 
-      "testatus_s_rdsIIest", 
-      "testatus_r_rdsIIest", 
-      "testatus_0_rdsIIest"
-    )
     myData <- bigDf[bigDf$pop == pop, ] #c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")
-    trPlot <- c(
-      "testatus_i_true", 
-      "testatus_s_true", 
-      "testatus_r_true", 
-      "testatus_0_true", 
-      "testatus_i_true", 
-      "testatus_s_true", 
-      "testatus_r_true", 
-      "testatus_0_true"
-    )
     
     for(attri in 1:length(toPlot)) {
       if( !( toPlot[attri] %in% names(myData)) ) {
@@ -126,7 +143,7 @@ if(T) {
       }
       attr <- toPlot[attri]
       
-      png( file.path(imgDir, paste(basename(pop),".",attr,".png")) )
+      png( file.path(imgDir, "ests", paste(basename(pop),".",attr,".png")) )
       
       trValue <- myData[,trPlot[attri]]
       hist(myData[,attr], main=paste(pop, attr), breaks=20)
