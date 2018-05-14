@@ -1,0 +1,448 @@
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+
+* Starting Network Simulation
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 2/24
+Incidence: 3
+Prevalence: 13
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 3/24
+Incidence: 7
+Prevalence: 20
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 4/24
+Incidence: 3
+Prevalence: 23
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 5/24
+Incidence: 6
+Prevalence: 29
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 6/24
+Incidence: 9
+Prevalence: 38
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 7/24
+Incidence: 7
+Prevalence: 45
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 8/24
+Incidence: 8
+Prevalence: 53
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 9/24
+Incidence: 6
+Prevalence: 59
+Population: 2000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 10/24
+Incidence: 10
+Prevalence: 69
+Population: 2000
+---------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 11/24
+Incidence: 12
+Prevalence: 81
+Population: 2000
+--------------------------
+
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 12/24
+Incidence: 14
+Prevalence: 95
+Population: 2000
+-------------------------
+
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 13/24
+Incidence: 19
+Prevalence: 114
+Population: 2000
+------------------------
+E
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 14/24
+Incidence: 19
+Prevalence: 133
+Population: 2000
+-----------------------
+Epi
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 15/24
+Incidence: 17
+Prevalence: 150
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 16/24
+Incidence: 27
+Prevalence: 177
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 17/24
+Incidence: 33
+Prevalence: 210
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 18/24
+Incidence: 37
+Prevalence: 247
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 19/24
+Incidence: 41
+Prevalence: 288
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 20/24
+Incidence: 42
+Prevalence: 330
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 21/24
+Incidence: 41
+Prevalence: 371
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 22/24
+Incidence: 69
+Prevalence: 440
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 23/24
+Incidence: 75
+Prevalence: 515
+Population: 2000
+----------------------
+
+Ep
+Epidemic Simulation
+----------------------------
+Simulation: 1/2
+Timestep: 24/24
+Incidence: 72
+Prevalence: 587
+Population: 2000
+----------------------
+
+Ep
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 2/24
+Incidence: 3
+Prevalence: 13
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 3/24
+Incidence: 2
+Prevalence: 15
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 4/24
+Incidence: 1
+Prevalence: 16
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 5/24
+Incidence: 4
+Prevalence: 20
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 6/24
+Incidence: 4
+Prevalence: 24
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 7/24
+Incidence: 4
+Prevalence: 28
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 8/24
+Incidence: 4
+Prevalence: 32
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 9/24
+Incidence: 4
+Prevalence: 36
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 10/24
+Incidence: 8
+Prevalence: 44
+Population: 2000
+----------------------
+Epid
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 11/24
+Incidence: 12
+Prevalence: 56
+Population: 2000
+---------------------
+Epide
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 12/24
+Incidence: 12
+Prevalence: 68
+Population: 2000
+--------------------
+Epidem
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 13/24
+Incidence: 19
+Prevalence: 87
+Population: 2000
+-------------------
+Epidemi
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 14/24
+Incidence: 20
+Prevalence: 107
+Population: 2000
+------------------
+Epidemic
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 15/24
+Incidence: 25
+Prevalence: 132
+Population: 2000
+-----------------
+Epidemic 
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 16/24
+Incidence: 41
+Prevalence: 173
+Population: 2000
+----------------
+Epidemic S
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 17/24
+Incidence: 28
+Prevalence: 201
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 18/24
+Incidence: 34
+Prevalence: 235
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 19/24
+Incidence: 36
+Prevalence: 271
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 20/24
+Incidence: 66
+Prevalence: 337
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 21/24
+Incidence: 60
+Prevalence: 397
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 22/24
+Incidence: 50
+Prevalence: 447
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 23/24
+Incidence: 73
+Prevalence: 520
+Population: 2000
+---------------
+Epidemic Si
+Epidemic Simulation
+----------------------------
+Simulation: 2/2
+Timestep: 24/24
+Incidence: 78
+Prevalence: 598
+Population: 2000
+----------------------------EpiModel Simulation
+=======================
+Model class: netsim
+
+Simulation Summary
+-----------------------
+Model type: SI
+No. simulations: 2
+No. time steps: 24
+No. NW modes: 1
+
+Model Parameters
+-----------------------
+inf.prob = 0.0067
+act.rate = 8
+rec.rate = 0.1666667
+
+Model Output
+-----------------------
+Variables: s.num i.num num si.flow
+Networks: sim1 sim2
+Transmissions: sim1 sim2null device 
+          1 

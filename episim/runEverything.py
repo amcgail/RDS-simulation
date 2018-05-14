@@ -87,14 +87,12 @@ def now():
     return str(datetime.now())
 
 def executeCommand(cmd):
-    i = 1
-    logFn = path.join( logdir, "%s.txt" % i )
-    while path.exists(logFn):
-        i += 1
-        logFn = path.join( logdir, "%s.txt" % i )
+    logFn = path.join( logdir, "log_%s.txt" % now() )
+    with open(logFn, 'w') as logF:
+        logF.write( "-------- EXECUTING %s -------" % cmd )
     
     print("command <<< %s >>> log <<< %s >>>" % (cmd, logFn))
-    out = subprocess.check_output(cmd + " > %s 2> %s " % (logFn, logFn), shell=True)
+    out = subprocess.check_output(cmd + " >> %s 2>> %s " % (logFn, logFn), shell=True)
     #open(logFn, 'w').write(out)
     # print(simOut)
 
@@ -175,14 +173,19 @@ def OutbreakAndRDS(params):
 
 # queue up all jobs across a maximum of 4 cores
 print("Queueing network simulation processes") 
-print("Putting %s of these in the queue in a few seconds, and returning to bash term." % len(paramCombinations))
+print("Putting %s of these in the queue in a few seconds, and then waiting forever" % len(paramCombinations))
 
-#THIS IS AWESOME!
-#pool = Pool(processes=4) 
-#pool.map_async( OutbreakAndRDS, paramCombinations )
+parallel = True
+if parallel:
+    #THIS IS AWESOME!
+    pool = Pool(processes=4) 
+    pool.map_async( OutbreakAndRDS, paramCombinations )
 
-for x in paramCombinations:
-    OutbreakAndRDS(x)
+    import time
+    time.sleep( 1500000 )
+else:
+    for x in paramCombinations:
+        OutbreakAndRDS(x)
 
 # just do this somewhere else
     
@@ -191,5 +194,3 @@ for x in paramCombinations:
 #    executeCommand( "Rscript --vanilla analysis.R %s" % thisWorldDir )
 
 # IT WON'T CONTINUE UNLESS WE JUST WAIT AND WAIT!    
-#import time
-#time.sleep( 1500000 )
