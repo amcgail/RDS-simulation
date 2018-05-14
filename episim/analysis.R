@@ -8,6 +8,10 @@ N_RDS_SAMPLES <- 200
 
 basePath <- args[1]
 #basePath <- "simulationRuns/sim_6/"
+
+imgDir <- file.path(basePath, "img")
+dir.create( imgDir, showWarnings=F )
+
 toEstimate <- list.dirs(file.path(basePath, "data"), recursive=F, full.names=T)
 
 bigDfFn <- file.path( basePath, "RDSanalysis.csv" )
@@ -38,6 +42,10 @@ trPlot <- c(trPlot, newcols)
 if( file.exists(bigDfFn) ){
   bigDf <- read.csv(bigDfFn)
 } else {
+  # directory for reingold plots
+  dir.create( file.path(imgDir,"reingold"), showWarnings=F )
+  reingoldLimit = 15
+  
   bigDf <- NULL
   
   for( dr in toEstimate) {
@@ -45,6 +53,8 @@ if( file.exists(bigDfFn) ){
       next;
     
     d.full <- read.csv( file.path( dr, 'RDS.full.csv' ) )
+    
+    reingoldCount = 0
     
     for( i in 0:N_RDS_SAMPLES ) {
       sampleFn <- file.path( dr, paste("RDSsample", i, "csv", sep=".") )
@@ -110,7 +120,13 @@ if( file.exists(bigDfFn) ){
       dfr <- as.data.frame(dfr)
       bigDf <- rbind.fill(bigDf, dfr)
       
-      #reingold.tilford.plot(rds.df)
+      if(reingoldCount < reingoldLimit) {
+        png( file.path(imgDir, "reingold", paste(basename(dr),as.char(i),"png", sep=".")) )
+        reingold.tilford.plot(rds.df)
+        dev.off()
+        
+        reingoldCount <- reingoldCount + 1
+      }
     }
   }
   
@@ -128,10 +144,6 @@ if(F) {
 }
   
 if(T) {
-  imgDir <- file.path(basePath, "img")
-  dir.create( imgDir, showWarnings=F )
-  
-  
   dir.create( file.path(imgDir,"ests"), showWarnings=F )
   # these plots are nice...
   for(pop in unique(bigDf$pop)) {
@@ -143,7 +155,7 @@ if(T) {
       }
       attr <- toPlot[attri]
       
-      png( file.path(imgDir, "ests", paste(basename(pop),".",attr,".png")) )
+      png( file.path(imgDir, "ests", paste(basename(pop),attr,"png",sep=".")) )
       
       trValue <- myData[,trPlot[attri]]
       hist(myData[,attr], main=paste(pop, attr), breaks=20)
