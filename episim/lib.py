@@ -221,7 +221,7 @@ class Network():
         # print(len(sampled), " individuals sampled")
         
         # print( "maxsample", maxsample )
-        if len(sampled) < maxsample / 2:
+        if len(sampled) < maxsample * 0.9:
             
             if numrecurse > 100:
                 raise DeepRecursionException()
