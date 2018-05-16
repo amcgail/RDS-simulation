@@ -1,0 +1,1 @@
+-------- EXECUTING Rscript --vanilla episim/epidemicSimulation.R "simulationRuns/sim_3/data/epi_3000-0.75-0.75_1" "3000" "0.75" "0.75" -------
