@@ -1,12 +1,14 @@
 library(RDS)
 library(plyr)
 library(rmarkdown)
+library(ggplot2)
+library(igraph)
 
 args <- commandArgs(trailingOnly = TRUE)
 
 N_RDS_SAMPLES <- 500
 
-basePath <- args[1]
+basePath <- file.path('simulationRuns', args[1])
 #basePath <- "simulationRuns/sim_6/"
 
 imgDir <- file.path(basePath, "img")
@@ -57,6 +59,8 @@ if( file.exists(bigDfFn) ){
     if( !file.exists(file.path( dr, 'RDS.full.csv' )) )
       next;
     
+    print(paste("Found file", "RDS.full.csv", "in dir", dr, "... analyzing"))
+    
     d.full <- read.csv( file.path( dr, 'RDS.full.csv' ) )
     
     reingoldCount = 0
@@ -64,12 +68,12 @@ if( file.exists(bigDfFn) ){
     for( i in 0:N_RDS_SAMPLES ) {
       sampleFn <- file.path( dr, paste("RDSsample", i, "csv", sep=".") )
       #print(sampleFn)
-      if( (i+1) %% 100 == 0 ) {
-        print(paste("Analyzing sample", i))
+      if( i %% 50 == 0 ) {
+        print(paste("On RDS sample", i))
       }
       
       if( !file.exists(sampleFn) ) {
-        print( c('Warning... Expected file ', sampleFn, ' to exist...') )
+        print( paste('Warning... Expected file', sampleFn, 'to exist...') )
         next;
       }
       
@@ -176,19 +180,96 @@ if( file.exists(bigDfFn) ){
 
 if(T) {
   # high-level plot of 95% confidence intervals
+  print(paste("Constructing 95% confidence interval coverage plot"))
   
   pops <- unique(bigDf$pop)
-  percents <- llply(pops, function(pop) {
+  highLevel <- ldply(pops, function(pop) {
     mySubset <- bigDf[bigDf$pop == pop,]
+    
+    stopifnot(length(unique(mySubset$testatus_i_true)) == 1)
+    true <- unique(mySubset$testatus_i_true)[[1]]
+    
     inCI <-  (mySubset$testatus_i_rdsI95low <= mySubset$testatus_i_true) & 
       (mySubset$testatus_i_rdsI95high >= mySubset$testatus_i_true)
-    print(length(mySubset[,1]))
+    
+    # print(length(mySubset[,1]))
     areIn <- table(inCI)["TRUE"]
     arentIn <- table(inCI)["FALSE"]
+    
     percent <- areIn / (areIn + arentIn)
+    
+    popName <- basename(as.character(pop))
+    
+    data.frame(
+      pop=pop,
+      popName=popName,
+      percent=percent,
+      true=true
+    )
+    
   })
+  
+  write.csv(highLevel, file.path(basePath, "highLevel.csv"))
+  
+  ggplot(highLevel, aes(x=popName, y=percent)) +
+    geom_point() +
+    labs(
+      x="Population Name",
+      y="Coverage",
+      title="Coverage of estimated 95% confidence interval"
+    ) +
+    geom_hline(yintercept = 0.95) + 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    #annotate("text", min(the.data$year), 50, vjust = -1, label = "Test") +
+    scale_y_continuous(labels = scales::percent) +
+    scale_linetype_manual("solid")
+  ggsave( file.path(imgDir,paste("95confCoverage","png",sep=".")) )
 }
 
+if(F) {
+  # render adjacency plots:
+  # Create the adjacency matrix plot
+  # These look so freaking bad.
+  # Not worth it at all, and not useful in plotting a network
+  
+  for( dr in toEstimate ) {
+    edges <- read.csv( file.path( dr, 'edges.csv' ) )
+    nodes <- read.csv( file.path( dr, 'nodes.csv' ) )
+    
+    maxt <- max(unique(edges$t))
+    
+    edges <- edges[edges$sim_i == 1 & edges$t == maxt, c("out","in.")]
+    nodes <- nodes[nodes$sim_i == 1 & nodes$t == maxt,c("person","blk")]
+    
+    graph <- graph.data.frame(edges, directed=F, vertices = nodes)
+  
+    # Create a character vector containing every node name
+    all_nodes <- sort(nodes$person)
+    
+    # Adjust the 'to' and 'from' factor levels so they are equal
+    # to this complete list of node names
+    plot_data <- edges %>% mutate(
+      out = factor(out, levels = all_nodes),
+      in. = factor(in., levels = all_nodes))
+    
+    ggplot(plot_data, aes(x = out, y = in.)) +
+      geom_raster() +
+      theme_bw()
+      # Because we need the x and y axis to display every node,
+      # not just the nodes that have connections to each other,
+      # make sure that ggplot does not drop unused factor levels
+      #scale_x_discrete(drop = FALSE) +
+      #scale_y_discrete(drop = FALSE) +
+      #theme(
+        # Rotate the x-axis lables so they are legible
+      #  axis.text.x = element_text(angle = 270, hjust = 0),
+        # Force the plot into a square aspect ratio
+      #  aspect.ratio = 1,
+        # Hide the legend (optional)
+      #  legend.position = "none")
+  }
+}
 
 if(T) {
   # render summary pdfs!

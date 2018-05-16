@@ -16,18 +16,19 @@ args <- args[-1]
 
 if( !dir.exists(folder) ) {dir.create(folder)}
 
-nodeFn <- paste( folder, "nodes.csv", sep="/" )
-edgeFn <- paste( folder, "edges.csv", sep="/" )
-
 # ----------- ARGUMENTS -------------
 
-NSIMULATIONS = 2
+NSIMULATIONS = 1
 
-nnodes = as.double( args[1] )
-homo_blk = as.double( args[2] )
-homo_nbd = as.double( args[3] )
+#args <- c(500, 0.5, 0.3, "T")
 
-meandeg = 2
+#nnodes = as.double( args[1] )
+homo_blk = as.double( args[1] )
+homo_nbd = as.double( args[2] )
+#dumbInfection = (args[4] == "T")
+
+nnodes = 3000
+meandeg = 3
 nedges = nnodes*meandeg
 # mindeg = 1
 # maxdeg = 14
@@ -38,7 +39,7 @@ n_months = 12 * 2 # 12 * 5
 NSTEPS = n_months
 OUTPUT_TIME_RESOLUTION = 6 # output a network every six months
 
-n_nbds <- 3
+n_nbds <- 10
 p_blk <- 0.5
 
 # parameters of epidemic spread
@@ -137,6 +138,7 @@ nodesCSV <- ldply( 1:NSIMULATIONS, function(si) {
   ldply( seq(1,NSTEPS,OUTPUT_TIME_RESOLUTION), function(t) {
     n <- get_network(mod, sim = si, collapse = TRUE, at = t)
     ldply( 1:length(n$val), function(vi) {
+      # actually export the result of the simulation
       c( si, t, vi, unlist( n$val[[vi]] )[c("blk","testatus")] )
     } )
   })
@@ -152,6 +154,34 @@ edgesCSV <- ldply( 1:NSIMULATIONS, function(si) {
   })
 })
 names(edgesCSV) <- c("sim_i","t","out","in")
+
+# NOW I want to replicate everything, but for an arbitrarily assigned analogous disease, which didn't spread
+
+fakeNodesCSV <- ldply( 1:NSIMULATIONS, function(si) {
+  ldply( seq(1,NSTEPS,OUTPUT_TIME_RESOLUTION), function(t) {
+    n <- get_network(mod, sim = si, collapse = TRUE, at = t)
+    info <- ldply( 1:length(n$val), function(vi) {
+      c( si, t, vi, unlist( n$val[[vi]] )[c("blk","testatus")] )
+    } )
+    names(info) <- c("1","2","3", "blk", "testatus")
+    # flip this column around randomly
+    info$testatus <- sample( info$testatus )
+    # and return :)
+    info
+  })
+})
+names(fakeNodesCSV) <- c("sim_i","t","person","blk","testatus")
+
+nodeFn <- paste( folder, "nodes.csv", sep="/" )
+edgeFn <- paste( folder, "edges.csv", sep="/" )
   
 write.csv(nodesCSV, nodeFn)
 write.csv(edgesCSV, edgeFn)
+
+fakeDir <- paste0(folder, ", noepi")
+dir.create(fakeDir, showWarnings = F)
+nodeFnFake <- file.path(fakeDir , "nodes.csv" )
+edgeFnFake <- file.path(fakeDir , "edges.csv" )
+
+write.csv(fakeNodesCSV, nodeFnFake)
+write.csv(edgesCSV, edgeFnFake)

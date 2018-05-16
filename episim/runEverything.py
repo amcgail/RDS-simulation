@@ -19,18 +19,21 @@ import sys
 
 # ---------- PARAMETERS -------------
 
-nsizes = [3000]
-homo_nbd = [0.25, 0.5, 0.75, 0.9]
-homo_blk = [0.5, 0.75]
+#nsizes = [3000]
+homo_nbd = [0.2, 0.4, 0.6, 0.8, 0.95]
+homo_blk = [0.2, 0.4, 0.6, 0.8, 0.95]
 #nsizes = [100, 500, 1000, 1500, 3000]
 #homos = [0.5, 0.8, 0.95]
-NUM_RDS_SAMPLES = 500
-MAX_RDS_SAMPLE_SIZE = 150
+NUM_RDS_SAMPLES = 300
+MAX_RDS_SAMPLE_SIZE = 200
 RDS_NUM_SEEDS = 5
+N_RUNS = 1
 
 # product generates a cartesian product
-paramCombinations = list(product(nsizes, homo_nbd, homo_blk))
+paramCombinations = list(product(homo_nbd, homo_blk))
 paramCombinations = paramCombinations[:]
+paramCombinations = paramCombinations * N_RUNS
+paramNames = ["hom_nbd", "hom_blk"]
 
 # ------------ BEGIN CODE -------------
 
@@ -93,7 +96,7 @@ def executeCommand(cmd):
     
     print("command <<< %s >>> log <<< %s >>>" % (cmd, logFn))
     out = subprocess.check_output(cmd + " >> %s 2>> %s " % (logFn, logFn), shell=True)
-    #open(logFn, 'w').write(out)
+    open(logFn, 'w').write(out)
     # print(simOut)
 
 if False:
@@ -116,10 +119,10 @@ if len(sys.argv) == 0:
     while path.exists( workingDirectory ):
         thisRuni += 1
         workingDirectory = mkRunDir(thisRuni)
-    os.mkdir(workingDirectory)
 else:    
     workingDirectory = path.join('simulationRuns', sys.argv[1] )
-
+    
+os.mkdir(workingDirectory)
 print("Workspace directory: %s" % workingDirectory)
 
 # subdirectories
@@ -150,8 +153,8 @@ copy("episim/runEverything.py", scriptdir)
 def OutbreakAndRDS(params):
     
     def mkWorldDir(thisWorldi):
-        x = "epi_%s_%s" % (
-            "-".join(str(x) for x in params),
+        x = "%s, run %s" % (
+            ", ".join("%s %s" % (v, paramNames[i]) for i,v in enumerate(params)),
             thisWorldi
         )
         return path.join(datadir,  x)
@@ -171,9 +174,9 @@ def OutbreakAndRDS(params):
     executeCommand(epiGraphCmd)
         
     # Using this data, we perform 200 RDS samples on the population
-    print("..Pulling 200 RDS samples...")    
-
+    print("..Pulling %s RDS samples from both worlds..." % NUM_RDS_SAMPLES)
     pullRDSsamples( thisWorldDir )
+    pullRDSsamples( thisWorldDir + ", noepi" )
 
 # queue up all jobs across a maximum of 4 cores
 print("Queueing network simulation processes") 
@@ -182,7 +185,7 @@ print("Putting %s of these in the queue in a few seconds, and then waiting forev
 parallel = True
 if parallel:
     #THIS IS AWESOME!
-    pool = Pool(processes=4) 
+    pool = Pool(processes=8)
     pool.map_async( OutbreakAndRDS, paramCombinations )
 
     import time

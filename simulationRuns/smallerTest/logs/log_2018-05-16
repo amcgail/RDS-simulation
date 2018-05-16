@@ -1,0 +1,1484 @@
+Loading required package: statnet
+Loading required package: statnet
+Loading required package: tergm
+Loading required package: tergm
+Loading required package: statnet
+Loading required package: statnet.common
+Loading required package: statnet.common
+Loading required package: tergm
+Loading required package: statnet.common
+Loading required package: statnet
+Loading required package: tergm
+Loading required package: statnet.common
+
+Attaching package: ‘statnet.common’
+
+
+Attaching package: ‘statnet.common’
+
+The following object is masked from ‘package:base’:
+
+    order
+
+The following object is masked from ‘package:base’:
+
+    order
+
+Loading required package: ergm
+Loading required package: ergm
+
+Attaching package: ‘statnet.common’
+
+Loading required package: network
+Loading required package: network
+The following object is masked from ‘package:base’:
+
+    order
+
+Loading required package: ergm
+Loading required package: network
+
+Attaching package: ‘statnet.common’
+
+network: Classes for Relational Data
+Version 1.13.0.1 created on 2015-08-31.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+The following object is masked from ‘package:base’:
+
+    order
+
+Loading required package: ergm
+network: Classes for Relational Data
+Version 1.13.0.1 created on 2015-08-31.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+Loading required package: network
+network: Classes for Relational Data
+Version 1.13.0.1 created on 2015-08-31.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+network: Classes for Relational Data
+Version 1.13.0.1 created on 2015-08-31.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Martina Morris, University of Washington
+                    Skye Bender-deMoll, University of Washington
+ For citation information, type citation("network").
+ Type help("network-package") to get started.
+
+
+ergm: version 3.8.0, created on 2017-08-18
+Copyright (c) 2017, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: Versions before 3.6.1 had a bug in the implementation of the bd()
+constriant which distorted the sampled distribution somewhat. In
+addition, Sampson's Monks datasets had mislabeled vertices. See the
+NEWS and the documentation for more details.
+
+
+ergm: version 3.8.0, created on 2017-08-18
+Copyright (c) 2017, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: Versions before 3.6.1 had a bug in the implementation of the bd()
+constriant which distorted the sampled distribution somewhat. In
+addition, Sampson's Monks datasets had mislabeled vertices. See the
+NEWS and the documentation for more details.
+
+Loading required package: networkDynamic
+Loading required package: networkDynamic
+
+ergm: version 3.8.0, created on 2017-08-18
+Copyright (c) 2017, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: Versions before 3.6.1 had a bug in the implementation of the bd()
+constriant which distorted the sampled distribution somewhat. In
+addition, Sampson's Monks datasets had mislabeled vertices. See the
+NEWS and the documentation for more details.
+
+Loading required package: networkDynamic
+
+networkDynamic: version 0.9.0, created on 2016-01-12
+Copyright (c) 2016, Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll, University of Washington
+                    with contributions from
+                    Zack Almquist, University of California -- Irvine
+                    David R. Hunter, Penn State University
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Steven M. Goodreau, University of Washington
+                    Jeffrey Horner
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("networkDynamic").
+
+
+networkDynamic: version 0.9.0, created on 2016-01-12
+Copyright (c) 2016, Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll, University of Washington
+                    with contributions from
+                    Zack Almquist, University of California -- Irvine
+                    David R. Hunter, Penn State University
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Steven M. Goodreau, University of Washington
+                    Jeffrey Horner
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("networkDynamic").
+
+
+networkDynamic: version 0.9.0, created on 2016-01-12
+Copyright (c) 2016, Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll, University of Washington
+                    with contributions from
+                    Zack Almquist, University of California -- Irvine
+                    David R. Hunter, Penn State University
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Steven M. Goodreau, University of Washington
+                    Jeffrey Horner
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("networkDynamic").
+
+
+ergm: version 3.8.0, created on 2017-08-18
+Copyright (c) 2017, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Martina Morris, University of Washington
+                    with contributions from
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Skye Bender-deMoll, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm").
+
+NOTE: Versions before 3.6.1 had a bug in the implementation of the bd()
+constriant which distorted the sampled distribution somewhat. In
+addition, Sampson's Monks datasets had mislabeled vertices. See the
+NEWS and the documentation for more details.
+
+Loading required package: networkDynamic
+
+tergm: version 3.4.1, created on 2017-09-12
+Copyright (c) 2017, Pavel N. Krivitsky, University of Wollongong
+                    Mark S. Handcock, University of California -- Los Angeles
+                    with contributions from
+                    David R. Hunter, Penn State University
+                    Steven M. Goodreau, University of Washington
+                    Martina Morris, University of Washington
+                    Nicole Bohme Carnegie, New York University
+                    Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Skye Bender-deMoll
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("tergm").
+
+
+tergm: version 3.4.1, created on 2017-09-12
+Copyright (c) 2017, Pavel N. Krivitsky, University of Wollongong
+                    Mark S. Handcock, University of California -- Los Angeles
+                    with contributions from
+                    David R. Hunter, Penn State University
+                    Steven M. Goodreau, University of Washington
+                    Martina Morris, University of Washington
+                    Nicole Bohme Carnegie, New York University
+                    Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Skye Bender-deMoll
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("tergm").
+
+Loading required package: ergm.count
+Loading required package: ergm.count
+
+networkDynamic: version 0.9.0, created on 2016-01-12
+Copyright (c) 2016, Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll, University of Washington
+                    with contributions from
+                    Zack Almquist, University of California -- Irvine
+                    David R. Hunter, Penn State University
+                    Li Wang
+                    Kirk Li, University of Washington
+                    Steven M. Goodreau, University of Washington
+                    Jeffrey Horner
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("networkDynamic").
+
+
+tergm: version 3.4.1, created on 2017-09-12
+Copyright (c) 2017, Pavel N. Krivitsky, University of Wollongong
+                    Mark S. Handcock, University of California -- Los Angeles
+                    with contributions from
+                    David R. Hunter, Penn State University
+                    Steven M. Goodreau, University of Washington
+                    Martina Morris, University of Washington
+                    Nicole Bohme Carnegie, New York University
+                    Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Skye Bender-deMoll
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("tergm").
+
+
+ergm.count: version 3.2.2, created on 2016-03-29
+Copyright (c) 2016, Pavel N. Krivitsky, University of Wollongong
+                    with contributions from
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm.count").
+
+NOTE: The form of the term ‘CMP’ has been changed in version 3.2 of
+‘ergm.count’. See the news or help('CMP') for more information.
+
+Loading required package: ergm.count
+
+ergm.count: version 3.2.2, created on 2016-03-29
+Copyright (c) 2016, Pavel N. Krivitsky, University of Wollongong
+                    with contributions from
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm.count").
+
+Loading required package: sna
+NOTE: The form of the term ‘CMP’ has been changed in version 3.2 of
+‘ergm.count’. See the news or help('CMP') for more information.
+
+Loading required package: sna
+
+ergm.count: version 3.2.2, created on 2016-03-29
+Copyright (c) 2016, Pavel N. Krivitsky, University of Wollongong
+                    with contributions from
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm.count").
+
+NOTE: The form of the term ‘CMP’ has been changed in version 3.2 of
+‘ergm.count’. See the news or help('CMP') for more information.
+
+sna: Tools for Social Network Analysis
+Version 2.4 created on 2016-07-23.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+Loading required package: sna
+sna: Tools for Social Network Analysis
+Version 2.4 created on 2016-07-23.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+sna: Tools for Social Network Analysis
+Version 2.4 created on 2016-07-23.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+
+tergm: version 3.4.1, created on 2017-09-12
+Copyright (c) 2017, Pavel N. Krivitsky, University of Wollongong
+                    Mark S. Handcock, University of California -- Los Angeles
+                    with contributions from
+                    David R. Hunter, Penn State University
+                    Steven M. Goodreau, University of Washington
+                    Martina Morris, University of Washington
+                    Nicole Bohme Carnegie, New York University
+                    Carter T. Butts, University of California -- Irvine
+                    Ayn Leslie-Cook, University of Washington
+                    Skye Bender-deMoll
+                    Li Wang
+                    Kirk Li, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("tergm").
+
+Loading required package: ergm.count
+
+statnet: version 2016.9, created on 2016-08-29
+Copyright (c) 2016, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("statnet").
+
+
+statnet: version 2016.9, created on 2016-08-29
+Copyright (c) 2016, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("statnet").
+
+
+ergm.count: version 3.2.2, created on 2016-03-29
+Copyright (c) 2016, Pavel N. Krivitsky, University of Wollongong
+                    with contributions from
+                    Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("ergm.count").
+
+NOTE: The form of the term ‘CMP’ has been changed in version 3.2 of
+‘ergm.count’. See the news or help('CMP') for more information.
+
+
+statnet: version 2016.9, created on 2016-08-29
+Copyright (c) 2016, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("statnet").
+
+Loading required package: sna
+sna: Tools for Social Network Analysis
+Version 2.4 created on 2016-07-23.
+copyright (c) 2005, Carter T. Butts, University of California-Irvine
+ For citation information, type citation("sna").
+ Type help(package="sna") to get started.
+
+
+statnet: version 2016.9, created on 2016-08-29
+Copyright (c) 2016, Mark S. Handcock, University of California -- Los Angeles
+                    David R. Hunter, Penn State University
+                    Carter T. Butts, University of California -- Irvine
+                    Steven M. Goodreau, University of Washington
+                    Pavel N. Krivitsky, University of Wollongong
+                    Skye Bender-deMoll
+                    Martina Morris, University of Washington
+Based on "statnet" project software (statnet.org).
+For license and citation information see statnet.org/attribution
+or type citation("statnet").
+
+unable to reach CRAN
+Loading required package: NetSim
+Loading required package: Rcpp
+unable to reach CRAN
+Loading required package: NetSim
+unable to reach CRAN
+Loading required package: Rcpp
+Loading required package: NetSim
+Loading required package: Rcpp
+
+Attaching package: ‘NetSim’
+
+The following object is masked from ‘package:stats’:
+
+    simulate
+
+Loading required package: EpiModel
+Loading required package: deSolve
+
+Attaching package: ‘NetSim’
+
+The following object is masked from ‘package:stats’:
+
+    simulate
+
+
+Attaching package: ‘NetSim’
+
+The following object is masked from ‘package:stats’:
+
+    simulate
+
+Loading required package: EpiModel
+Loading required package: deSolve
+Loading required package: EpiModel
+unable to reach CRAN
+Loading required package: deSolve
+Loading required package: NetSim
+Loading required package: Rcpp
+
+Attaching package: ‘NetSim’
+
+The following object is masked from ‘package:stats’:
+
+    simulate
+
+Loading required package: EpiModel
+Loading required package: deSolve
+
+Attaching package: ‘EpiModel’
+
+The following object is masked from ‘package:NetSim’:
+
+    get_network
+
+Loading required package: RDS
+
+Attaching package: ‘EpiModel’
+
+The following object is masked from ‘package:NetSim’:
+
+    get_network
+
+Loading required package: methods
+Loading required package: RDS
+Loading required package: methods
+
+Attaching package: ‘EpiModel’
+
+The following object is masked from ‘package:NetSim’:
+
+    get_network
+
+Loading required package: RDS
+Loading required package: methods
+
+Attaching package: ‘EpiModel’
+
+The following object is masked from ‘package:NetSim’:
+
+    get_network
+
+Loading required package: RDS
+Loading required package: methods
+Loading required package: plyr
+Loading required package: plyr
+Loading required package: plyr
+
+Attaching package: ‘plyr’
+
+The following object is masked from ‘package:network’:
+
+    is.discrete
+
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+Warning message:
+replacing previous import by ‘ergm::summary.formula’ when loading ‘RDS’ 
+
+Attaching package: ‘plyr’
+
+The following object is masked from ‘package:network’:
+
+    is.discrete
+
+
+Attaching package: ‘plyr’
+
+The following object is masked from ‘package:network’:
+
+    is.discrete
+
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+Warning message:
+replacing previous import by ‘ergm::summary.formula’ when loading ‘RDS’ 
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+Warning message:
+replacing previous import by ‘ergm::summary.formula’ when loading ‘RDS’ 
+Loading required package: plyr
+
+Attaching package: ‘plyr’
+
+The following object is masked from ‘package:network’:
+
+    is.discrete
+
+[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] TRUE
+
+[[5]]
+[1] TRUE
+
+[[6]]
+[1] TRUE
+
+Warning message:
+replacing previous import by ‘ergm::summary.formula’ when loading ‘RDS’ 
+
+* Starting Network Simulation
+* Starting Network Simulation
+* Starting Network Simulation
+* Starting Network Simulation
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 2/24
+Incidence: 1
+Prevalence: 11
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 2/24
+Incidence: 3
+Prevalence: 13
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 2/24
+Incidence: 2
+Prevalence: 12
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 3/24
+Incidence: 5
+Prevalence: 16
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 2/24
+Incidence: 2
+Prevalence: 12
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 3/24
+Incidence: 1
+Prevalence: 13
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 3/24
+Incidence: 5
+Prevalence: 18
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 4/24
+Incidence: 7
+Prevalence: 23
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 3/24
+Incidence: 2
+Prevalence: 14
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 4/24
+Incidence: 5
+Prevalence: 18
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 4/24
+Incidence: 9
+Prevalence: 27
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 5/24
+Incidence: 5
+Prevalence: 28
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 4/24
+Incidence: 4
+Prevalence: 18
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 5/24
+Incidence: 6
+Prevalence: 24
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 5/24
+Incidence: 7
+Prevalence: 34
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 6/24
+Incidence: 5
+Prevalence: 33
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 5/24
+Incidence: 7
+Prevalence: 25
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 6/24
+Incidence: 2
+Prevalence: 26
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 6/24
+Incidence: 9
+Prevalence: 43
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 7/24
+Incidence: 8
+Prevalence: 41
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 6/24
+Incidence: 6
+Prevalence: 31
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 7/24
+Incidence: 5
+Prevalence: 31
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 7/24
+Incidence: 10
+Prevalence: 53
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 8/24
+Incidence: 5
+Prevalence: 46
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 8/24
+Incidence: 3
+Prevalence: 34
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 8/24
+Incidence: 5
+Prevalence: 58
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 7/24
+Incidence: 6
+Prevalence: 37
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 9/24
+Incidence: 9
+Prevalence: 55
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 8/24
+Incidence: 7
+Prevalence: 44
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 9/24
+Incidence: 7
+Prevalence: 41
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 9/24
+Incidence: 12
+Prevalence: 70
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 9/24
+Incidence: 7
+Prevalence: 51
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 10/24
+Incidence: 9
+Prevalence: 64
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 10/24
+Incidence: 6
+Prevalence: 47
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 10/24
+Incidence: 13
+Prevalence: 83
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 10/24
+Incidence: 10
+Prevalence: 61
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 11/24
+Incidence: 10
+Prevalence: 74
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 11/24
+Incidence: 12
+Prevalence: 59
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 11/24
+Incidence: 12
+Prevalence: 73
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 11/24
+Incidence: 8
+Prevalence: 91
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 12/24
+Incidence: 10
+Prevalence: 84
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 12/24
+Incidence: 13
+Prevalence: 72
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 12/24
+Incidence: 19
+Prevalence: 110
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 12/24
+Incidence: 10
+Prevalence: 83
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 13/24
+Incidence: 16
+Prevalence: 100
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 13/24
+Incidence: 10
+Prevalence: 82
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 13/24
+Incidence: 15
+Prevalence: 98
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 13/24
+Incidence: 16
+Prevalence: 126
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 14/24
+Incidence: 15
+Prevalence: 115
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 14/24
+Incidence: 22
+Prevalence: 148
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 14/24
+Incidence: 16
+Prevalence: 98
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 14/24
+Incidence: 14
+Prevalence: 112
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 15/24
+Incidence: 16
+Prevalence: 131
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 15/24
+Incidence: 18
+Prevalence: 166
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 15/24
+Incidence: 15
+Prevalence: 127
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 15/24
+Incidence: 23
+Prevalence: 121
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 16/24
+Incidence: 23
+Prevalence: 154
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 16/24
+Incidence: 13
+Prevalence: 140
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 16/24
+Incidence: 27
+Prevalence: 193
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 16/24
+Incidence: 18
+Prevalence: 139
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 17/24
+Incidence: 19
+Prevalence: 173
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 17/24
+Incidence: 27
+Prevalence: 167
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 17/24
+Incidence: 21
+Prevalence: 160
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 17/24
+Incidence: 32
+Prevalence: 225
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 18/24
+Incidence: 32
+Prevalence: 205
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 18/24
+Incidence: 19
+Prevalence: 179
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 18/24
+Incidence: 49
+Prevalence: 274
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 18/24
+Incidence: 24
+Prevalence: 191
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 19/24
+Incidence: 37
+Prevalence: 242
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 19/24
+Incidence: 25
+Prevalence: 204
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 19/24
+Incidence: 34
+Prevalence: 308
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 19/24
+Incidence: 32
+Prevalence: 223
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 20/24
+Incidence: 42
+Prevalence: 284
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 20/24
+Incidence: 26
+Prevalence: 230
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 20/24
+Incidence: 28
+Prevalence: 251
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 20/24
+Incidence: 39
+Prevalence: 347
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 21/24
+Incidence: 49
+Prevalence: 333
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 21/24
+Incidence: 29
+Prevalence: 259
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 21/24
+Incidence: 54
+Prevalence: 401
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 21/24
+Incidence: 33
+Prevalence: 284
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 22/24
+Incidence: 39
+Prevalence: 372
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 22/24
+Incidence: 38
+Prevalence: 297
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 22/24
+Incidence: 45
+Prevalence: 446
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 22/24
+Incidence: 39
+Prevalence: 323
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 23/24
+Incidence: 45
+Prevalence: 417
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 23/24
+Incidence: 38
+Prevalence: 335
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 23/24
+Incidence: 56
+Prevalence: 502
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 23/24
+Incidence: 37
+Prevalence: 360
+Population: 1000
+----------------------------
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 24/24
+Incidence: 46
+Prevalence: 463
+Population: 1000
+----------------------------EpiModel Simulation
+=======================
+Model class: netsim
+
+Simulation Summary
+-----------------------
+Model type: SI
+No. simulations: 1
+No. time steps: 24
+No. NW modes: 1
+
+Model Parameters
+-----------------------
+inf.prob = 0.0067
+act.rate = 8
+rec.rate = 0.1666667
+
+Model Output
+-----------------------
+Variables: s.num i.num num si.flow
+Networks: sim1
+Transmissions: sim1null device 
+          1 
+
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 24/24
+Incidence: 44
+Prevalence: 379
+Population: 1000
+----------------------------EpiModel Simulation
+=======================
+Model class: netsim
+
+Simulation Summary
+-----------------------
+Model type: SI
+No. simulations: 1
+No. time steps: 24
+No. NW modes: 1
+
+Model Parameters
+-----------------------
+inf.prob = 0.0067
+act.rate = 8
+rec.rate = 0.1666667
+
+Model Output
+-----------------------
+Variables: s.num i.num num si.flow
+Networks: sim1
+Transmissions: sim1
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 24/24
+Incidence: 42
+Prevalence: 402
+Population: 1000
+----------------------------EpiModel Simulation
+=======================
+Model class: netsim
+
+Simulation Summary
+-----------------------
+Model type: SI
+No. simulations: 1
+No. time steps: 24
+No. NW modes: 1
+
+Model Parameters
+-----------------------
+inf.prob = 0.0067
+act.rate = 8
+rec.rate = 0.1666667
+
+Model Output
+-----------------------
+Variables: s.num i.num num si.flow
+Networks: sim1
+Transmissions: sim1null device 
+          1 
+null device 
+          1 
+
+Epidemic Simulation
+----------------------------
+Simulation: 1/1
+Timestep: 24/24
+Incidence: 60
+Prevalence: 562
+Population: 1000
+----------------------------EpiModel Simulation
+=======================
+Model class: netsim
+
+Simulation Summary
+-----------------------
+Model type: SI
+No. simulations: 1
+No. time steps: 24
+No. NW modes: 1
+
+Model Parameters
+-----------------------
+inf.prob = 0.0067
+act.rate = 8
+rec.rate = 0.1666667
+
+Model Output
+-----------------------
+Variables: s.num i.num num si.flow
+Networks: sim1
+Transmissions: sim1null device 
+          1 
