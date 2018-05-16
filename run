@@ -1,2 +1,2 @@
 #!/bin/bash
-python episim/runEverything.py
+python episim/runEverything.py "$1"

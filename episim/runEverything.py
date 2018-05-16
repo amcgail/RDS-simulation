@@ -15,7 +15,7 @@ from itertools import product
 from multiprocessing import Pool, Process
 import subprocess
 from datetime import datetime
-
+import sys
 
 # ---------- PARAMETERS -------------
 
@@ -110,12 +110,16 @@ def mkRunDir(thisRuni):
     x = "sim_%s" % thisRuni
     return path.join('simulationRuns',  x)
 
-thisRuni = 1
-workingDirectory = mkRunDir(thisRuni)
-while path.exists( workingDirectory ):
-    thisRuni += 1
+if len(sys.argv) == 0:
+    thisRuni = 1
     workingDirectory = mkRunDir(thisRuni)
-os.mkdir(workingDirectory)
+    while path.exists( workingDirectory ):
+        thisRuni += 1
+        workingDirectory = mkRunDir(thisRuni)
+    os.mkdir(workingDirectory)
+else:    
+    workingDirectory = path.join('simulationRuns', sys.argv[1] )
+
 print("Workspace directory: %s" % workingDirectory)
 
 # subdirectories

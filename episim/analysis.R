@@ -7,7 +7,7 @@ args <- commandArgs(trailingOnly = TRUE)
 N_RDS_SAMPLES <- 500
 
 basePath <- args[1]
-basePath <- "simulationRuns/sim_6/"
+#basePath <- "simulationRuns/sim_6/"
 
 imgDir <- file.path(basePath, "img")
 dir.create( imgDir, showWarnings=F )
@@ -38,10 +38,12 @@ newcols <- outer( paste0(newcols,"_"), c("true","true"), FUN="paste0")
 trPlot <- c(trPlot, newcols)
 
 # global variables for debugging
-lastReingold <- NULl
+lastReingold <- NULL
 eIte <- NULL
 d <- NULL
 
+# if the full RDS analysis hasn't already been done, do that!
+# generates reingold plots of RDS samples
 if( file.exists(bigDfFn) ){
   bigDf <- read.csv(bigDfFn)
 } else {
@@ -61,7 +63,11 @@ if( file.exists(bigDfFn) ){
     
     for( i in 0:N_RDS_SAMPLES ) {
       sampleFn <- file.path( dr, paste("RDSsample", i, "csv", sep=".") )
-      print(sampleFn)
+      #print(sampleFn)
+      if( (i+1) %% 100 == 0 ) {
+        print(paste("Analyzing sample", i))
+      }
+      
       if( !file.exists(sampleFn) ) {
         print( c('Warning... Expected file ', sampleFn, ' to exist...') )
         next;
@@ -73,6 +79,7 @@ if( file.exists(bigDfFn) ){
       d[ d$recruit %in% seeds, "recruit" ] <- -1
       d[ d$recruiter %in% seeds, "recruiter" ] <- -1
       d <- d[ d$recruit != -1, ]
+      # print(length(d[,1]))
       
       dfr <- list(i, dr)
       names(dfr) <- c("sampleNo", "pop")
