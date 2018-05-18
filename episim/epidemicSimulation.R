@@ -91,7 +91,7 @@ nbd_same_edges <- nedges * ( homo_nbd + (1-homo_nbd) * 1/n_nbds )
 
 formation <- ~edges + nodematch("blk") + nodematch("nbd")
 target.stats <- c(nedges, blk_same_edges, nbd_same_edges)
-  
+
 est <- netest(nw, formation, target.stats, coef.diss = dissolution_coefs(~offset(edges), 12, d.rate))
 
 param <- param.net( 

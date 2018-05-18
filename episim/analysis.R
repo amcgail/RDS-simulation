@@ -10,6 +10,7 @@ N_RDS_SAMPLES <- 500
 
 basePath <- file.path('simulationRuns', args[1])
 #basePath <- "simulationRuns/sim_6/"
+basePath <- "simulationRuns/10reps_meanDeg3"
 
 imgDir <- file.path(basePath, "img")
 dir.create( imgDir, showWarnings=F )
@@ -22,22 +23,22 @@ bigDfFn <- file.path( basePath, "RDSanalysis.csv" )
 # generate a list of all columns I'll be interested in, along with their true values!
 
 toPlot <- NULL
-newcols <- outer("testatus_", c("i","s","r","0"), FUN="paste0")
+newcols <- outer("testatus_", c("i"), FUN="paste0") # "s","r","0"
 newcols <- outer( paste0(newcols,"_"), c("rdsIest","rdsIIest"), FUN="paste0")
 toPlot <- c(toPlot, newcols)
 
-newcols <- outer("blk_", c("1","0"), FUN="paste0")
-newcols <- outer( paste0(newcols,"_"), c("rdsIest","rdsIIest"), FUN="paste0")
-toPlot <- c(toPlot, newcols)
+#newcols <- outer("blk_", c("1","0"), FUN="paste0")
+#newcols <- outer( paste0(newcols,"_"), c("rdsIest","rdsIIest"), FUN="paste0")
+#toPlot <- c(toPlot, newcols)
 
 trPlot <- NULL
-newcols <- outer("testatus_", c("i","s","r","0"), FUN="paste0")
+newcols <- outer("testatus_", c("i"), FUN="paste0") # ,"s","r","0"
 newcols <- outer( paste0(newcols,"_"), c("true","true"), FUN="paste0")
 trPlot <- c(trPlot, newcols)
 
-newcols <- outer("blk_", c("1","0"), FUN="paste0")
-newcols <- outer( paste0(newcols,"_"), c("true","true"), FUN="paste0")
-trPlot <- c(trPlot, newcols)
+#newcols <- outer("blk_", c("1","0"), FUN="paste0")
+#newcols <- outer( paste0(newcols,"_"), c("true","true"), FUN="paste0")
+#trPlot <- c(trPlot, newcols)
 
 # global variables for debugging
 lastReingold <- NULL
@@ -49,8 +50,6 @@ d <- NULL
 if( file.exists(bigDfFn) ){
   bigDf <- read.csv(bigDfFn)
 } else {
-  # directory for reingold plots
-  dir.create( file.path(imgDir,"reingold"), showWarnings=F )
   reingoldLimit = 15
   
   bigDf <- NULL
@@ -65,6 +64,8 @@ if( file.exists(bigDfFn) ){
     
     reingoldCount = 0
     
+    pstate = 0
+    
     for( i in 0:N_RDS_SAMPLES ) {
       sampleFn <- file.path( dr, paste("RDSsample", i, "csv", sep=".") )
       #print(sampleFn)
@@ -73,7 +74,10 @@ if( file.exists(bigDfFn) ){
       }
       
       if( !file.exists(sampleFn) ) {
-        print( paste('Warning... Expected file', sampleFn, 'to exist...') )
+        if(pstate==0) print( paste('Warning... Expected file', sampleFn, 'to exist...') );
+        if(pstate==1) print( paste('Warning... Expected more files to exist...') );
+        if(pstate==50) print( paste('Warning... Expected many more files to exist...') );
+        pstate <- pstate + 1
         next;
       }
       
@@ -154,12 +158,12 @@ if( file.exists(bigDfFn) ){
       
       if(reingoldCount < reingoldLimit) {
         rds.df$blk_shape = "circle"
-        rds.df[rds.df$blk == 1,"blk_shape"] = "square"
+        rds.df[rds.df$testatus == "i","blk_shape"] = "square"
         
-        png( file.path(reingoldDir, paste(as.char(i),"png", sep=".")) )
+        png( file.path(reingoldDir, paste(as.char(i),"png", sep=".")), width = 900, height = 900 )
         reingold.tilford.plot(
           rds.df, 
-          vertex.color="testatus", 
+          vertex.color="blk", 
           vertex.size=5, 
           #vertex.label="blk", 
           vertex.label=NA,
@@ -281,11 +285,31 @@ if(T) {
   }
 }
   
-if(T) {
-  dir.create( file.path(imgDir,"ests"), showWarnings=F )
-  # these plots are nice...
+substrRight <- function(x, n){
+  substr(x, nchar(x)-n+1, nchar(x))
+}
+
+allPlots <- list()
+
+if(F) {
+  # This creates a big-ass grid of all the results!
+  # Requires that the parameters were originally in a full grid, of course
+  # OH and I'm pretty sure it doesn't actually work :(
+  
+  allPlots <- list()
+  ploti <- 0
+  
   for(pop in unique(bigDf$pop)) {
+    if( substrRight(pop, 7) == ", noepi") {
+      next;
+    }
+    
     myData <- bigDf[bigDf$pop == pop, ] #c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")
+    myData$epi <- "epi"
+    myOtherData <- bigDf[bigDf$pop == paste0(pop, ", noepi"), ]
+    myOtherData$epi <- "no epi"
+    
+    myData <- rbind(myData, myOtherData)
     
     for(attri in 1:length(toPlot)) {
       if( !( toPlot[attri] %in% names(myData)) ) {
@@ -293,13 +317,96 @@ if(T) {
       }
       attr <- toPlot[attri]
       
-      png( file.path(imgDir, "ests", paste(basename(pop),attr,"png",sep=".")) )
+      trValue <- myData[,trPlot[attri]]
+      estMeanEpi <- mean(myData[myData$epi=="epi",attr])
+      estMeanNoEpi <- mean(myData[myData$epi=="no epi",attr])
+      
+      nicerEpi <- function(x) {
+        c( "epi", "rand" )
+      }
+      
+      ploti <- ploti + 1
+      # well that's annoying!
+      local({
+        allPlots[[ploti]] <<- eval(substitute( ggplot(myData) + 
+                                                 geom_histogram(aes_string(attr), bins=40,
+                                                                position="identity", alpha=1.0,
+                                                                fill="gray", colour="black") +
+                                                 facet_grid(epi~., labeller = labeller(epi = nicerEpi)) +
+                                                 geom_vline(xintercept = trValue, color="red", size=1.5) +
+                                                 geom_vline(data=subset(myData, epi=="epi"), aes(xintercept = estMeanEpi), linetype="dashed") +
+                                                 geom_vline(data=subset(myData, epi=="no epi"), aes(xintercept = estMeanNoEpi), linetype="dashed") +
+                                                 theme(axis.title.x=element_blank(),
+                                                       axis.text.x=element_blank(),
+                                                       axis.ticks.x=element_blank()) +
+                                                 theme(axis.title.y=element_blank(),
+                                                       axis.text.y=element_blank(),
+                                                       axis.ticks.y=element_blank())
+        ))
+      })
+    }
+  }
+  
+  do.call( grid.arrange, c(allPlots, nrow=5) )
+}
+
+if(T) {
+  dir.create( file.path(imgDir,"ests"), showWarnings=F )
+  # these plots show RDS estimates versus the true,
+  #   comparing epi to no-epi
+  ploti <- 0
+  for(pop in unique(bigDf$pop)) {
+    if( substrRight(pop, 7) == ", noepi") {
+      next;
+    }
+    
+    myData <- bigDf[bigDf$pop == pop, ] #c(toPlot, "testatus_i_true", "testatus_s_true", "testatus_0_true")
+    myData$epi <- "epi"
+    myOtherData <- bigDf[bigDf$pop == paste0(pop, ", noepi"), ]
+    myOtherData$epi <- "no epi"
+    
+    myData <- rbind(myData, myOtherData)
+    
+    for(attri in 1:length(toPlot)) {
+      if( !( toPlot[attri] %in% names(myData)) ) {
+        next;
+      }
+      attr <- toPlot[attri]
       
       trValue <- myData[,trPlot[attri]]
-      hist(myData[,attr], main=paste(pop, attr), breaks=20)
-      abline(v=trValue, col="red")
+      estMeanEpi <- mean(myData[myData$epi=="epi",attr])
+      estMeanNoEpi <- mean(myData[myData$epi=="no epi",attr])
       
-      dev.off()
+      nicerEpi <- function(x) {
+        c( "Epidemic Transmission", "Random Infection" )
+      }
+      formatFn <- function(x) {
+        x <- stringi::stri_replace(str=x, replacement="Homophily by neighborhood", regex="hom_nbd")
+        x <- stringi::stri_replace(str=x, replacement="Homophily by race", regex="hom_blk")
+        x <- stringi::stri_replace(str=x, replacement="", regex=", run [0-9]+")
+        x
+      }
+      whichRds <- function(x) {
+        if( stringi::stri_count(x, regex="rdsI[^I]") > 0 ) {return("RDS-I")}
+        if( stringi::stri_count(x, regex="rdsII") > 0 ) {return("RDS-II")}
+      }
+      
+      ggplot(myData) + 
+          geom_histogram(aes_string(attr), bins=40,
+                         position="identity", alpha=1.0,
+                         fill="gray", colour="black") +
+          facet_grid(epi~., labeller = labeller(epi = nicerEpi)) +
+          labs(
+            x=paste0("Estimate of proportion infected"), 
+            y="Frequency among RDS samples", 
+            title=paste0("Comparison of ",whichRds(attr)," estimates"),
+            subtitle=formatFn(basename(pop))
+            #subtitle="epi = attribute spreads across referral network, no epi = attribute set independently at random"
+          ) +
+          geom_vline(xintercept = trValue, color="red", size=1.5) +
+          geom_vline(data=subset(myData, epi=="epi"), aes(xintercept = estMeanEpi), linetype="dashed") +
+          geom_vline(data=subset(myData, epi=="no epi"), aes(xintercept = estMeanNoEpi), linetype="dashed")
+      ggsave(file.path(imgDir, "ests", paste(basename(pop),attr,"png",sep=".")))
     }
   }
 }

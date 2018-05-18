@@ -1,0 +1,51 @@
+"","pop","popName","percent","true"
+"1","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.2 hom_blk, run 1","0.2 hom_nbd, 0.2 hom_blk, run 1",0.89,0.293
+"2","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.2 hom_blk, run 1, noepi","0.2 hom_nbd, 0.2 hom_blk, run 1, noepi",0.956666666666667,0.293
+"3","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.4 hom_blk, run 1","0.2 hom_nbd, 0.4 hom_blk, run 1",0.893333333333333,0.228666666666667
+"4","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.4 hom_blk, run 1, noepi","0.2 hom_nbd, 0.4 hom_blk, run 1, noepi",0.97,0.228666666666667
+"5","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.6 hom_blk, run 1","0.2 hom_nbd, 0.6 hom_blk, run 1",0.883333333333333,0.225333333333333
+"6","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.6 hom_blk, run 1, noepi","0.2 hom_nbd, 0.6 hom_blk, run 1, noepi",0.95,0.225333333333333
+"7","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.8 hom_blk, run 1","0.2 hom_nbd, 0.8 hom_blk, run 1",0.81,0.145666666666667
+"8","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.8 hom_blk, run 1, noepi","0.2 hom_nbd, 0.8 hom_blk, run 1, noepi",0.936666666666667,0.145666666666667
+"9","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.95 hom_blk, run 1","0.2 hom_nbd, 0.95 hom_blk, run 1",0.46,0.204
+"10","simulationRuns/10reps_meanDeg3/data/0.2 hom_nbd, 0.95 hom_blk, run 1, noepi","0.2 hom_nbd, 0.95 hom_blk, run 1, noepi",0.946666666666667,0.204
+"11","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.2 hom_blk, run 1","0.4 hom_nbd, 0.2 hom_blk, run 1",0.933333333333333,0.346333333333333
+"12","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.2 hom_blk, run 1, noepi","0.4 hom_nbd, 0.2 hom_blk, run 1, noepi",0.943333333333333,0.346333333333333
+"13","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.4 hom_blk, run 1","0.4 hom_nbd, 0.4 hom_blk, run 1",0.903333333333333,0.286
+"14","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.4 hom_blk, run 1, noepi","0.4 hom_nbd, 0.4 hom_blk, run 1, noepi",0.956666666666667,0.286
+"15","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.6 hom_blk, run 1","0.4 hom_nbd, 0.6 hom_blk, run 1",0.906666666666667,0.179333333333333
+"16","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.6 hom_blk, run 1, noepi","0.4 hom_nbd, 0.6 hom_blk, run 1, noepi",0.96,0.179333333333333
+"17","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.8 hom_blk, run 1","0.4 hom_nbd, 0.8 hom_blk, run 1",0.823333333333333,0.112
+"18","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.8 hom_blk, run 1, noepi","0.4 hom_nbd, 0.8 hom_blk, run 1, noepi",0.95,0.112
+"19","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.95 hom_blk, run 1","0.4 hom_nbd, 0.95 hom_blk, run 1",0.333333333333333,0.253666666666667
+"20","simulationRuns/10reps_meanDeg3/data/0.4 hom_nbd, 0.95 hom_blk, run 1, noepi","0.4 hom_nbd, 0.95 hom_blk, run 1, noepi",0.946666666666667,0.253666666666667
+"21","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.2 hom_blk, run 1","0.6 hom_nbd, 0.2 hom_blk, run 1",0.91,0.229
+"22","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.2 hom_blk, run 1, noepi","0.6 hom_nbd, 0.2 hom_blk, run 1, noepi",0.966666666666667,0.229
+"23","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.4 hom_blk, run 1","0.6 hom_nbd, 0.4 hom_blk, run 1",0.86,0.228666666666667
+"24","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.4 hom_blk, run 1, noepi","0.6 hom_nbd, 0.4 hom_blk, run 1, noepi",0.906666666666667,0.228666666666667
+"25","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.6 hom_blk, run 1","0.6 hom_nbd, 0.6 hom_blk, run 1",0.886666666666667,0.239666666666667
+"26","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.6 hom_blk, run 1, noepi","0.6 hom_nbd, 0.6 hom_blk, run 1, noepi",0.953333333333333,0.239666666666667
+"27","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.8 hom_blk, run 1","0.6 hom_nbd, 0.8 hom_blk, run 1",0.78,0.142666666666667
+"28","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.8 hom_blk, run 1, noepi","0.6 hom_nbd, 0.8 hom_blk, run 1, noepi",0.93,0.142666666666667
+"29","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.95 hom_blk, run 1","0.6 hom_nbd, 0.95 hom_blk, run 1",0.39,0.180666666666667
+"30","simulationRuns/10reps_meanDeg3/data/0.6 hom_nbd, 0.95 hom_blk, run 1, noepi","0.6 hom_nbd, 0.95 hom_blk, run 1, noepi",0.953333333333333,0.180666666666667
+"31","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.2 hom_blk, run 1","0.8 hom_nbd, 0.2 hom_blk, run 1",0.893333333333333,0.292666666666667
+"32","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.2 hom_blk, run 1, noepi","0.8 hom_nbd, 0.2 hom_blk, run 1, noepi",0.953333333333333,0.292666666666667
+"33","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.4 hom_blk, run 1","0.8 hom_nbd, 0.4 hom_blk, run 1",0.886666666666667,0.159
+"34","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.4 hom_blk, run 1, noepi","0.8 hom_nbd, 0.4 hom_blk, run 1, noepi",0.966666666666667,0.159
+"35","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.6 hom_blk, run 1","0.8 hom_nbd, 0.6 hom_blk, run 1",0.82,0.164
+"36","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.6 hom_blk, run 1, noepi","0.8 hom_nbd, 0.6 hom_blk, run 1, noepi",0.936666666666667,0.164
+"37","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.8 hom_blk, run 1","0.8 hom_nbd, 0.8 hom_blk, run 1",0.796666666666667,0.136666666666667
+"38","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.8 hom_blk, run 1, noepi","0.8 hom_nbd, 0.8 hom_blk, run 1, noepi",0.943333333333333,0.136666666666667
+"39","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.95 hom_blk, run 1","0.8 hom_nbd, 0.95 hom_blk, run 1",0.498316498316498,0.087
+"40","simulationRuns/10reps_meanDeg3/data/0.8 hom_nbd, 0.95 hom_blk, run 1, noepi","0.8 hom_nbd, 0.95 hom_blk, run 1, noepi",0.923333333333333,0.087
+"41","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.2 hom_blk, run 1","0.95 hom_nbd, 0.2 hom_blk, run 1",0.833333333333333,0.323666666666667
+"42","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.2 hom_blk, run 1, noepi","0.95 hom_nbd, 0.2 hom_blk, run 1, noepi",0.956666666666667,0.323666666666667
+"43","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.4 hom_blk, run 1","0.95 hom_nbd, 0.4 hom_blk, run 1",0.756666666666667,0.275666666666667
+"44","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.4 hom_blk, run 1, noepi","0.95 hom_nbd, 0.4 hom_blk, run 1, noepi",0.946666666666667,0.275666666666667
+"45","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.6 hom_blk, run 1","0.95 hom_nbd, 0.6 hom_blk, run 1",0.766666666666667,0.160666666666667
+"46","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.6 hom_blk, run 1, noepi","0.95 hom_nbd, 0.6 hom_blk, run 1, noepi",0.933333333333333,0.160666666666667
+"47","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.8 hom_blk, run 1","0.95 hom_nbd, 0.8 hom_blk, run 1",0.696666666666667,0.0903333333333333
+"48","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.8 hom_blk, run 1, noepi","0.95 hom_nbd, 0.8 hom_blk, run 1, noepi",0.91,0.0903333333333333
+"49","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.95 hom_blk, run 1","0.95 hom_nbd, 0.95 hom_blk, run 1",0.583333333333333,0.113666666666667
+"50","simulationRuns/10reps_meanDeg3/data/0.95 hom_nbd, 0.95 hom_blk, run 1, noepi","0.95 hom_nbd, 0.95 hom_blk, run 1, noepi",0.93,0.113666666666667

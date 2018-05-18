@@ -20,14 +20,14 @@ import sys
 # ---------- PARAMETERS -------------
 
 #nsizes = [3000]
-homo_nbd = [0.2, 0.4, 0.6, 0.8, 0.95]
-homo_blk = [0.2, 0.4, 0.6, 0.8, 0.95]
+homo_nbd = [0.5, 0.95]
+homo_blk = [0.4]
 #nsizes = [100, 500, 1000, 1500, 3000]
 #homos = [0.5, 0.8, 0.95]
 NUM_RDS_SAMPLES = 300
 MAX_RDS_SAMPLE_SIZE = 200
 RDS_NUM_SEEDS = 5
-N_RUNS = 1
+N_RUNS = 10
 
 # product generates a cartesian product
 paramCombinations = list(product(homo_nbd, homo_blk))
